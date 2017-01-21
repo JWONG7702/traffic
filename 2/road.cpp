@@ -51,13 +51,13 @@ void Road::motion(){
         int y = c->getj();
             if(c != 0){
                 if(c->mode() == 1 && c->done() == 0){
-                    if(c->getj() + (c->velocity()) >= this->larr[x]->size){
-                        this->larr[x]->carr[y] = 0;
+                    if(c->getj() + (c->velocity()) >= this->larr()[x]->size()){
+                        this->larray[x]->carray[y] = 0;
                         
                     } else {
-                        this->larr[x]->carr[y+(c->velocity())] = c;
+                        this->larray[x]->carray[y+(c->velocity())] = c;
                         c->setdone(1);
-                        this->larr[x]->carr[y] = 0;
+                        this->larray[x]->carray[y] = 0;
                     }
                 }
             }
@@ -95,20 +95,29 @@ void Road::clearDones(){
     }
 }
 
+//checks if the lane is there
+int Road::hasNeighbor(Car* car, int lane){
+    if (x+lane >=0 && x+lane <= (this -> width()){
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
 Car* Road::getNeighbor(Car* car, int lane){
     x = car.geti();
     y = car.getj();
     Car* nearest = 0;
-    if (j+lane >=0 && j+lane <= (this -> width()){
-        Lane* searchlane = this -> larr()[j+lane]
+    if (this->hasNeighbor(car, lane)){
+        Lane* searchlane = this -> larr()[x+lane]
         for (int i = 0; i< 10;i++){
-            if ( (nearest = searchlane -> carr()[x+i]) != 0){
+            if ( (nearest = searchlane -> carr()[y+i]) != 0){
                 return nearest;
             }
         } 
-        return nearest;
+        return nearest;//will be null if empty
     }
-    return ERROR;//error
+    return nearest;//never reached b/c always check if has neighbor before you run this method
 }
 //advances the entire simulation (the road) forward one time step
 Road& Road::next()

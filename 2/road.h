@@ -42,6 +42,8 @@ class Lane {
        Lane(int l){ carray = new Car*[l]; len = l; }
        //destructor
        ~Lane(){ delete[] carray; }
+
+        Car** carray; //only call this when modifying
        //get lane size
        int size() const{ return len; }
        //get array of cars which makes up lane
@@ -52,7 +54,6 @@ class Lane {
        friend ostream& operator<<(ostream& os, Lane& l);
     private:
        int len;
-       Car** carray;
 };
 
 class Road {
@@ -61,6 +62,9 @@ class Road {
         int width() const{ return wdth; }
         //get array of lanes which makes up road
         Lane** larr() const{ return larray; }
+
+        Lane** larray; //only call this when modifying
+
         //road default constructor
         Road(int b){ larray = new Lane*[b]; wdth = b; }
         //road destructor
@@ -80,13 +84,15 @@ class Road {
         //allows printing
         friend ostream& operator<<(ostream& os, Road& r);
         //get closest cars
+        int hasNeighbor(Car* car, int i);
+        int hasLeft(Car* car){return hasNeighbor(car,-1);};
+        int hasRight(Car* car){return hasNeighbor(car,1);};
         Car* getFront(Car* car){return getNeighbor(car,-1);};
         Car* getRight(Car* car){return getNeighbor(car,0);};
         Car* getLeft(Car* car){return getNeighbor(car,1);};
         Car* getNeighbor(Car* car, int i);
     private: 
         int wdth;
-        Lane** larray;
 };
 
 #endif

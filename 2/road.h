@@ -13,9 +13,9 @@ class Car {
         //get car isdone status
         int done() const{ return isdone; }
         //set car isdone status
-        int setdone(int newstate) {isdone = newstate; }
+        int setdone(int newstate) {return isdone = newstate; }
         //default car constructor
-        Car(int i, int j, int v, int m = 1, int d = 0){x = i, y = j, vel = v;m = state;isdone = d;front=0;back=0 }
+        Car(int i, int j, int v, int m = 1, int d = 0){x = i, y = j, vel = v;m = state;isdone = d;}
         //car destructor
         ~Car();
         //accelerate by 1
@@ -80,10 +80,10 @@ class Road {
         //allows printing
         friend ostream& operator<<(ostream& os, Road& r);
         //get closest cars
-        Car* getFront(Car* car){return getNeighbor(car,-1)};
-        Car* getRight(Car* car){return getNeighbor(car,0)};
-        Car* getLeft(Car* car){return getNeighbor(car,1)};
-        Car* getNeighbor(Car* car);
+        Car* getFront(Car* car){return getNeighbor(car,-1);};
+        Car* getRight(Car* car){return getNeighbor(car,0);};
+        Car* getLeft(Car* car){return getNeighbor(car,1);};
+        Car* getNeighbor(Car* car, int i);
     private: 
         int wdth;
         Lane** larray;

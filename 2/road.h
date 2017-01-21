@@ -19,6 +19,9 @@ class Lane {
        int size;
        Car** carr;
        Lane(int l){ carr = new Car*[l]; size = l;}
+    void addCar(Car* c){
+        carr[0] = c;
+    }
 };
 
 class Road {

@@ -65,6 +65,7 @@ Road& Road::motion(){
                         
                     } else {
                         this->larr[i]->carr[j+(c->velocity())] = c;
+                        this->larr[i]->carr[j+(c->velocity())]->setdone(1);
                         this->larr[i]->carr[j] = 0;
                     }
                 }

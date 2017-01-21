@@ -12,6 +12,7 @@ class Car {
         void accel( int i) { velocity += i;}
         friend ostream& operator<<(ostream& os, Car& c){os<< "[" << c.velocity << "]"; return os;};
 };
+//cucc my sock, binch
 class Lane {
     public:
     //vector of sharedpointer of cars

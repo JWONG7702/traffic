@@ -7,12 +7,10 @@ objects = road.o simulation.o
 .PHONY: default
 default: $(executables)
 
-$(executables): road.o
-
 $(objects): road.h
 
 .PHONY: clean
 clean: 
-	rm -f *~ a.out core $(objects) $(executable)
+	rm -f *~ a.out core simulation $(objects) $(executable)
 .PHONY: all
 all: clean default

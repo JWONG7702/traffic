@@ -8,11 +8,13 @@ class Car {
     public:
         int velocity() const{ return vel;}
         int mode() const{ return state;}
-        Car(int v, int m = 1){vel = v;m = state;}
+        int done() const{ return isdone;}
+        Car(int v, int m = 1, int d = 0){vel = v;m = state;isdone = d;}
         ~Car();
         void accel( int i = 1) { vel += i;}
         friend ostream& operator<<(ostream& os, Car& c){os<< "[" << c.velocity() << "]"; return os;};
     private:
+        int isdone;
         int vel;
         int state;
 };
@@ -27,6 +29,7 @@ class Lane {
        void addCar(Car* c){
            carray[0] = c;
        }
+       friend ostream& operator<<(ostream& os, Lane& l);
     private:
        int len;
        Car** carray;
@@ -34,6 +37,7 @@ class Lane {
 
 class Road {
     public:
+        
         int length() const{return len;}
         Lane** larr() const{return larray;}
         Road(int b){ larray = new Lane*[b]; len = b;}
@@ -45,6 +49,7 @@ class Road {
         Road& random();
         Road& motion();
         Road& next();
+        friend ostream& operator<<(ostream& os, Road& r);
     private: 
         int len;
         Lane** larray;

@@ -47,15 +47,17 @@ void Road::random(){
 //for all the cars that haven't done their action (if they haven't changed lanes/merged) are just moved forward by their velocity
 void Road::motion(){
     for (Car* c : cars) {
+        int x = c->geti();
+        int y = c->getj();
             if(c != 0){
                 if(c->mode() == 1 && c->done() == 0){
-                    if(c->getj + (c->velocity()) >= this->larr[i]->size){
-                        this->larr[i]->carr[j] = 0;
+                    if(c->getj() + (c->velocity()) >= this->larr[x]->size){
+                        this->larr[x]->carr[y] = 0;
                         
                     } else {
-                        this->larr[i]->carr[j+(c->velocity())] = c;
-                        this->larr[i]->carr[j+(c->velocity())]->setdone(1);
-                        this->larr[i]->carr[j] = 0;
+                        this->larr[x]->carr[y+(c->velocity())] = c;
+                        c->setdone(1);
+                        this->larr[x]->carr[y] = 0;
                     }
                 }
             }
@@ -73,7 +75,6 @@ void Road::motion(){
  */
 void Road::merge(){
     for(Car* c : car){
-            Car* c = this->larr[i]->carr[j];
             if(c != 0){
                 if(c->mode() == 1 && c->done() == 0){
                     

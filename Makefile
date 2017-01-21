@@ -1,10 +1,11 @@
-CXX = g++
+CC = g++
+CXX = g++ -std=c++11
 INCLUDE = 
 CFLAG = -g Wall $(INCLUDE)
-executables = 
-objects =
+executables = simulation 
+objects = road.o simulation.o
 .PHONY: default
-default: $(executable)
+default: $(executables)
 
 $(executables): road.o
 

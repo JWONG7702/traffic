@@ -38,6 +38,7 @@ Road& Road::random(){
 }
 
 Road& Road::motion(){
+    this->merge();
     return *this;
 }
 

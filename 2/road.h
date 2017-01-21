@@ -6,19 +6,22 @@
 using namespace std;
 class Car {
     public:
-        int velocity;
-        Car(int v){velocity = v;}
+        int velocity() const{ return vel;}
+        Car(int v){vel = v;}
         ~Car();
-        void accel( int i) { velocity += i;}
-        friend ostream& operator<<(ostream& os, Car& c){os<< "[" << c.velocity << "]"; return os;};
+        void accel( int i) { vel += i;}
+        friend ostream& operator<<(ostream& os, Car& c){os<< "[" << c.velocity() << "]"; return os;};
+    private:
+        int vel;
 };
 //cucc my socc, binch
 class Lane {
     public:
     //vector of sharedpointer of cars
-       Car** carr;
-       int size;
        Lane(int l){ carr = new Car*[l]; size = l;}
+       ~Lane(){delete carr;}
+       int size;
+       Car** carr;
 };
 
 class Road {

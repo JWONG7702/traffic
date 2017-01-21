@@ -113,6 +113,9 @@ Road& Road::next()
     this->slow();
     this->random();
     this->merge();
+    this->accelerate();
+    this->slow();
+    this->random();
     this->motion();
     this->clearDones();
     return *this;

@@ -22,6 +22,9 @@ class Lane {
        ~Lane(){delete carr;}
        int size;
        Car** carr;
+       void addCar(Car* c){
+           carr[0] = c;
+       }
 };
 
 class Road {

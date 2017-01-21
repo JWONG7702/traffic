@@ -1,6 +1,6 @@
 #ifndef __ROAD_H__
 #define __ROAD_H__
-
+#include <list>
 #include <iostream>
 #include <cstdio>
 using namespace std;
@@ -64,15 +64,18 @@ class Road {
         Lane** larr() const{ return larray; }
 
         Lane** larray; //only call this when modifying
-
+        
         //road default constructor
-        Road(int b){ larray = new Lane*[b]; wdth = b; }
+        Road(int b){ larray = new Lane*[b]; wdth = b;cars = new list<Car*>  }
         //road destructor
         ~Road(){ delete[] larray; }
+        
+  
         //add new lane to road
         void addLane(Lane* lpt, int i){
             larray[i] = &(*lpt);
         }
+
         //road evolution methods
 	void accelerate();
         void slow();
@@ -91,6 +94,8 @@ class Road {
         Car* getRight(Car* car){return getNeighbor(car,0);};
         Car* getLeft(Car* car){return getNeighbor(car,1);};
         Car* getNeighbor(Car* car, int i);
+        list<Car*> cars;
+
     private: 
         int wdth;
 };

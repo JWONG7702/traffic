@@ -1,9 +1,9 @@
 #include "road.h"
 
 int main(){
-    Car* c1 = new Car(3);
+    Car* c1 = new Car(0,0,3);
     c1->accel(9);
-    Car* c2 = new Car(3);
+    Car* c2 = new Car(0,0,3);
 
     Lane* l1 = new Lane(200);
     l1->carr()[0] = c1;

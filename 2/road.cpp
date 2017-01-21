@@ -55,9 +55,6 @@ Road& Road::random(){
 }
 
 Road& Road::motion(){
-<<<<<<< HEAD
-    this->merge();
-=======
     for(int i = 0; i < this->count; i++){
         for(int j = this->larr[i]->size-1; j >= 0; j++){
             Car* c = this->larr[i]->carr[j];
@@ -75,7 +72,6 @@ Road& Road::motion(){
             }
         }
     }
->>>>>>> 0553093ce6e5c95c4f866ff41723c5baee011d0e
     return *this;
 }
 

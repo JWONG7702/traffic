@@ -93,7 +93,21 @@ void Road::clearDones(){
     }
 }
 
-
+Car* Road::getNeighbor(Car* car, int lane){
+    x = car.geti();
+    y = car.getj();
+    Car* nearest = 0;
+    if (j+lane >=0 && j+lane <= (this -> width()){
+        Lane* searchlane = this -> larr()[j+lane]
+        for (int i = 0; i< 10;i++){
+            if ( (nearest = searchlane -> carr()[x+i]) != 0){
+                return nearest;
+            }
+        } 
+        return nearest;
+    }
+    return ERROR;//error
+}
 //advances the entire simulation (the road) forward one time step
 Road& Road::next()
 {

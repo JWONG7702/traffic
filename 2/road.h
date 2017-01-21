@@ -79,6 +79,7 @@ class Road {
         Road& next();
         //allows printing
         friend ostream& operator<<(ostream& os, Road& r);
+        //get closest cars
         Car* getFront(Car* car);
         Car* getRight(Car* car);
         Car* getLeft(Car* car);

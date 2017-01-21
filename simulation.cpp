@@ -1,4 +1,3 @@
-
 #include "road.h"
 #include <cstdio>
 #include <iostream>

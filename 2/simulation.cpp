@@ -15,7 +15,7 @@ int main(){
 
     for(int i = 0; i<r->count; i++) {
 	for(int j=0; j<r->larr[i]->size; j++) {
-            if(Car* it = r->larr[i]->carr[j]) cout << it->velocity<<endl;
+            if(Car* it = r->larr[i]->carr[j]) cout << it->velocity()<<endl;
         }
     }
 }

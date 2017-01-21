@@ -40,3 +40,4 @@ int main(){
         cout << l->carr[i]->velocity<<endl;
     }
 }
+//anun, pass it on

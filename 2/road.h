@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <cstdio>
-#include <iostream>
 using namespace std;
 class Car {
     public:
@@ -13,6 +12,7 @@ class Car {
         void accel( int i) { velocity += i;}
         friend ostream& operator<<(ostream& os, Car& c){os<< "[" << c.velocity << "]"; return os;};
 };
+//cucc my socc, binch
 class Lane {
     public:
     //vector of sharedpointer of cars

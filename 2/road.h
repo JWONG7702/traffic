@@ -15,28 +15,25 @@ class Car {
         //set car isdone status
         int setdone(int newstate) {isdone = newstate; }
         //default car constructor
-        Car(int v, int m = 1, int d = 0){ vel = v;m = state;isdone = d;front=0;back=0 }
+        Car(int i, int j, int v, int m = 1, int d = 0){x = i, y = j, vel = v;m = state;isdone = d;front=0;back=0 }
         //car destructor
         ~Car();
         //accelerate by 1
         void accel( int i = 1) { vel += i; }
         //allows printing
         friend ostream& operator<<(ostream& os, Car& c){ os<< "[" << c.velocity() << "]"; return os; };
-        //get position of car in front
-        int getFrontPos(Car* c) const{ return this->front->pos; }
-        //get velocity of car in front
-        int getFrontVel(Car* c) const{ return this->front->vel; }
-        //set pointer to car in front
-        void setFront(Car* c) const{ this.front = c; }
-        //set pointer to car in back
-        void setBack(Car* c) const{ this.back = c; }
+        //get own position
+        int geti() const{ return x;}
+        int getj() const{return y;}
+        //set own position
+        int seti(int i) const{ return x=i;}
+        int setj(int j) const{return y=j;}
     private:
         int isdone;
         int vel;
         int state;
-        int pos;
-        Car* front;
-        Car* back;
+        int x;
+        int y;
 };
 //cucc my socc, binch
 class Lane {
@@ -82,6 +79,9 @@ class Road {
         Road& next();
         //allows printing
         friend ostream& operator<<(ostream& os, Road& r);
+        Car* getFront(Car* car);
+        Car* getRight(Car* car);
+        Car* getLeft(Car* car);
     private: 
         int wdth;
         Lane** larray;

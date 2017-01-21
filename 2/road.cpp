@@ -12,7 +12,7 @@ Road& Road::accelerate(){
         for(int j = 0; j < this->larr()[i]->size(); j++){
             Car* c = this->larr()[i]->carr()[j];
             if(c != 0){
-                if(c->velocity() < maxVel){
+                if(c->mode() == 1 && c->velocity() < maxVel){
                     c->accel();
                 }
             }
@@ -26,7 +26,7 @@ Road& Road::slow(){
         for(int j = 0; j < this->larr()[i]->size(); j++){
             Car* c = this->larr()[i]->carr()[j];
             if(c != 0){
-                if(c->getFrontPos() + c->getFrontVel() - c->velocity() < 0){
+                if(c->mode() == 1 && c->getFrontPos() + c->getFrontVel() - c->velocity() < 0){
                     int accelAmount = (c->getFrontPos() + c->getFrontVel() - c->velocity() - 1 < -maxDecel) ? 0 : c->getFrontPos() + c->getFrontVel() - c->velocity() - 1;
                     c->accel(accelAmount); 
                 }
@@ -42,7 +42,7 @@ Road& Road::random(){
         for(int j = 0; j < this->larr[i]->size; j++){
             Car* c = this->larr[i]->carr[j];
             if(c != 0){
-                if(c->velocity() > 1){
+                if(c->mode() == 1 && c->velocity() > 1){
                     double r = ((double) rand() / (RAND_MAX));
                     if(r < phantomProbability){
                         c->accel(-1);
@@ -59,7 +59,7 @@ Road& Road::motion(){
         for(int j = this->larr[i]->size-1; j >= 0; j++){
             Car* c = this->larr[i]->carr[j];
             if(c != 0){
-                if(c->done() == 0){
+                if(c->mode() == 1 && c->done() == 0){
                     if(j + (c->velocity()) >= this->larr[i]->size){
                         this->larr[i]->carr[j] = 0;
                         
@@ -77,6 +77,20 @@ Road& Road::motion(){
 
 Road& Road::merge(){
     
+}
+
+//clears the done for all living cars (mode == 1)
+Road& Road::clearDones(){
+    for(int i = 0; i < this->count; i++){
+        for(int j = this->larr[i]->size-1; j >= 0; j++){
+            Car* c = this->larr[i]->carr[j];
+            if(c != 0){
+                if(c->mode() == 1){
+                    c->setdone(0);
+                }
+            }
+        }
+    }
 }
 
 

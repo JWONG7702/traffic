@@ -14,10 +14,15 @@ class Car {
         ~Car();
         void accel( int i = 1) { vel += i;}
         friend ostream& operator<<(ostream& os, Car& c){os<< "[" << c.velocity() << "]"; return os;};
+        int getFrontPos(Car* c);
+        int getFrontVel(Car* c);
     private:
         int isdone;
         int vel;
         int state;
+        int pos;
+        Car* front;
+        Car* back;
 };
 //cucc my socc, binch
 class Lane {
@@ -27,9 +32,8 @@ class Lane {
        ~Lane(){delete[] carray;}
        int size() const{return len;}
        Car** carr() const {return carray;}
-       void addCar(Car* c){
-           carray[0] = c;
-       }
+       void addCar(Car* c);
+       void subCar(Car* c);
        friend ostream& operator<<(ostream& os, Lane& l);
     private:
        int len;

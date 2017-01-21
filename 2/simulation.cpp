@@ -1,4 +1,3 @@
-
 #include "road.h"
 int main(){
     Car* c = new Car(3);

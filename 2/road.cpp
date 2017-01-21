@@ -107,5 +107,5 @@ Road& Road::next()
     r->random();
     r->motion();
     r->clearDones();
-    return r;
+    return *r;
 }

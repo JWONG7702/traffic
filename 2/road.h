@@ -35,7 +35,11 @@ class Road {
         void addLane(Lane* lpt, int i){
             larr[i] = &(*lpt);
         }
-	Road& next();
+	Road& accelerate();
+        Road& slow();
+        Road& random();
+        Road& motion();
+        Road& next();
 };
 
 #endif

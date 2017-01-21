@@ -7,12 +7,14 @@ using namespace std;
 class Car {
     public:
         int velocity() const{ return vel;}
-        Car(int v){vel = v;}
+        int mode() const{ return state;}
+        Car(int v, int m = 1){vel = v;m = state}
         ~Car();
-        void accel( int i) { vel += i;}
+        void accel( int i = 1) { vel += i;}
         friend ostream& operator<<(ostream& os, Car& c){os<< "[" << c.velocity() << "]"; return os;};
     private:
         int vel;
+        int state;
 };
 //cucc my socc, binch
 class Lane {
@@ -32,9 +34,9 @@ class Lane {
 
 class Road {
     public:
-        int count;
-        Lane** larr;
-        Road(int b){ larr = new Lane*[b]; count = b;}
+        int length() const{return len;}
+        Lane** larr() const{return larray;}
+        Road(int b){ larr = new Lane*[b]; len = b;}
         void addLane(Lane* lpt, int i){
             larr[i] = &(*lpt);
         }
@@ -43,6 +45,9 @@ class Road {
         Road& random();
         Road& motion();
         Road& next();
+    private: 
+        int len;
+        Lane** larr;
 };
 
 #endif

@@ -7,7 +7,7 @@ CFLAG = -g Wall $(INCLUDE)
 CXXFLAGS = -g -Wall $(INCLUDE) -std=c++11
 
 executables = simulation 
-objects = simulation.o road.o
+objects = simulation.o road.o lane.o
 
 .PHONY: default
 default: $(executables)

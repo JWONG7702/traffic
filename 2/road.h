@@ -18,13 +18,16 @@ class Car {
 class Lane {
     public:
     //vector of sharedpointer of cars
-       Lane(int l){ carr = new Car*[l]; size = l;}
-       ~Lane(){delete carr;}
-       int size;
-       Car** carr;
+       Lane(int l){ carray = new Car*[l]; len = l;}
+       ~Lane(){delete carray;}
+       int size() const{return len;}
+       Car** carr() const {return carray;}
        void addCar(Car* c){
-           carr[0] = c;
+           carray[0] = c;
        }
+    private:
+       int len;
+       Car** carray;
 };
 
 class Road {

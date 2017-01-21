@@ -5,8 +5,8 @@ int main(){
     Car* c2 = new Car(3);
 
     Lane* l1 = new Lane(200);
-    l1->carr[0] = c1;
-    l1->carr[100] = c2;
+    l1->carr()[0] = c1;
+    l1->carr()[100] = c2;
     Lane* l2 = new Lane(100);
     
     Road* r = new Road(2);
@@ -14,8 +14,8 @@ int main(){
     r->larr[1] = l2;
 
     for(int i = 0; i<r->count; i++) {
-	for(int j=0; j<r->larr[i]->size; j++) {
-            if(Car* it = r->larr[i]->carr[j]) cout << it->velocity()<<endl;
+	for(int j=0; j<r->larr[i]->size(); j++) {
+            if(Car* it = r->larr[i]->carr()[j]) cout << it->velocity()<<endl;
         }
     }
 }

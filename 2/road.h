@@ -9,6 +9,7 @@ class Car {
         int velocity() const{ return vel;}
         int mode() const{ return state;}
         int done() const{ return isdone;}
+        int setdone(int newstate) {isdone = newstate;}
         Car(int v, int m = 1, int d = 0){vel = v;m = state;isdone = d;}
         ~Car();
         void accel( int i = 1) { vel += i;}

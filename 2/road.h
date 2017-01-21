@@ -29,6 +29,7 @@ class Road {
         void addLane(Lane* lpt, int i){
             larr[i] = &(*lpt);
         }
+	Road& next() { return *this; }
 };
 
 #endif

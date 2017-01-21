@@ -6,7 +6,7 @@
 static int maxVel = 20;
 static int maxDecel = maxVel/5;
 static double phantomProbability = 0.2;
-
+static int maxSearchRegion = 10;
 void Road::accelerate(){
     for(Car* c : cars){
             if(c != 0){

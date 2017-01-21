@@ -27,7 +27,6 @@ void Road::slow(){
                 }
             }
     }
-    
 }
 
 //randomly changes the velocity of some cars to be lower, based on a phantomProbability

@@ -6,18 +6,30 @@
 using namespace std;
 class Car {
     public:
-        int velocity() const{ return vel;}
-        int mode() const{ return state;}
-        int done() const{ return isdone;}
-        int setdone(int newstate) {isdone = newstate;}
-        Car(int v, int m = 1, int d = 0){vel = v;m = state;isdone = d;}
+        //get car velocity
+        int velocity() const{ return vel; }
+        //get car mode
+        int mode() const{ return state; }
+        //get car isdone status
+        int done() const{ return isdone; }
+        //set car isdone status
+        int setdone(int newstate) {isdone = newstate; }
+        //default car constructor
+        Car(int v, int m = 1, int d = 0){ vel = v;m = state;isdone = d;front=0;back=0 }
+        //car destructor
         ~Car();
-        void accel( int i = 1) { vel += i;}
-        friend ostream& operator<<(ostream& os, Car& c){os<< "[" << c.velocity() << "]"; return os;};
-        int getFrontPos(Car* c);
-        int getFrontVel(Car* c);
-        void setFront(Car* c);
-        void setBack(Car* c);
+        //accelerate by 1
+        void accel( int i = 1) { vel += i; }
+        //allows printing
+        friend ostream& operator<<(ostream& os, Car& c){ os<< "[" << c.velocity() << "]"; return os; };
+        //get position of car in front
+        int getFrontPos(Car* c) const{ return this->front->pos; }
+        //get velocity of car in front
+        int getFrontVel(Car* c) const{ return this->front->vel; }
+        //set pointer to car in front
+        void setFront(Car* c) const{ this.front = c; }
+        //set pointer to car in back
+        void setBack(Car* c) const{ this.back = c; }
     private:
         int isdone;
         int vel;
@@ -29,12 +41,17 @@ class Car {
 //cucc my socc, binch
 class Lane {
     public:
-    //vector of sharedpointer of cars
-       Lane(int l){ carray = new Car*[l]; len = l;}
-       ~Lane(){delete[] carray;}
-       int size() const{return len;}
-       Car** carr() const {return carray;}
+    //vector of sharedpointer of cars: default construcotr
+       Lane(int l){ carray = new Car*[l]; len = l; }
+       //destructor
+       ~Lane(){ delete[] carray; }
+       //get lane size
+       int size() const{ return len; }
+       //get array of cars which makes up lane
+       Car** carr() const { return carray; }
+       //add new car to lane
        void addCar(Car* c);
+       //allows printing
        friend ostream& operator<<(ostream& os, Lane& l);
     private:
        int len;
@@ -43,22 +60,30 @@ class Lane {
 
 class Road {
     public:
-        
-        int length() const{return len;}
-        Lane** larr() const{return larray;}
-        Road(int b){ larray = new Lane*[b]; len = b;}
-        ~Road(){ delete[] larray;}
+        //get road width
+        int width() const{ return wdth; }
+        //get array of lanes which makes up road
+        Lane** larr() const{ return larray; }
+        //road default constructor
+        Road(int b){ larray = new Lane*[b]; wdth = b; }
+        //road destructor
+        ~Road(){ delete[] larray; }
+        //add new lane to road
         void addLane(Lane* lpt, int i){
             larray[i] = &(*lpt);
         }
-	Road& accelerate();
-        Road& slow();
-        Road& random();
-        Road& motion();
+        //road evolution methods
+	void accelerate();
+        void slow();
+        void random();
+        void motion();
+        void merge();
+        void clearDones();
         Road& next();
+        //allows printing
         friend ostream& operator<<(ostream& os, Road& r);
     private: 
-        int len;
+        int wdth;
         Lane** larray;
 };
 

@@ -7,7 +7,7 @@ static int maxVel = 20;
 static int maxDecel = maxVel/5;
 static double phantomProbability = 0.2;
 
-Road& Road::accelerate(){
+void Road::accelerate(){
     for(int i = 0; i < this->width(); i++){
         for(int j = 0; j < this->larr()[i]->size(); j++){
             Car* c = this->larr()[i]->carr()[j];
@@ -18,11 +18,10 @@ Road& Road::accelerate(){
             }
         }
     }
-    return *this;
 }
 
 //slows a car down if it's about to crash into the thing in front of it, and if it can
-Road& Road::slow(){
+void Road::slow(){
     for(int i = 0; i < this->width(); i++){
         for(int j = 0; j < this->larr()[i]->size(); j++){
             Car* c = this->larr()[i]->carr()[j];
@@ -34,12 +33,10 @@ Road& Road::slow(){
             }
         }
     }
-    return *this;
-    
 }
 
 //randomly changes the velocity of some cars to be lower, based on a phantomProbability
-Road& Road::random(){
+void Road::random(){
     for(int i = 0; i < this->width(); i++){
         for(int j = 0; j < this->larr[i]->size(); j++){
             Car* c = this->larr[i]->carr[j];
@@ -53,11 +50,10 @@ Road& Road::random(){
             }
         }
     }
-    return *this;
 }
 
 //for all the cars that haven't done their action (if they haven't changed lanes/merged) are just moved forward by their velocity
-Road& Road::motion(){
+void Road::motion(){
     for(int i = 0; i < this->width(); i++){
         for(int j = this->larr[i]->size()-1; j >= 0; j++){
             Car* c = this->larr[i]->carr[j];
@@ -75,7 +71,6 @@ Road& Road::motion(){
             }
         }
     }
-    return *this;
 }
 
 //handles merges and lane changes
@@ -87,7 +82,7 @@ Road& Road::motion(){
  Change lane with probability P.
 
  */
-Road& Road::merge(){
+void Road::merge(){
     for(int i = 0; i < this->width(); i++){
         for(int j = this->larr[i]->size()-1; j >= 0; j++){
             Car* c = this->larr[i]->carr[j];
@@ -99,7 +94,7 @@ Road& Road::merge(){
 }
 
 //clears the done for all living cars (mode == 1)
-Road& Road::clearDones(){
+void Road::clearDones(){
     for(int i = 0; i < this->width(); i++){
         for(int j = this->larr[i]->size-1; j >= 0; j++){
             Car* c = this->larr[i]->carr[j];

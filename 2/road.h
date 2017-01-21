@@ -73,10 +73,12 @@ class Road {
             larray[i] = &(*lpt);
         }
         //road evolution methods
-	Road& accelerate();
-        Road& slow();
-        Road& random();
-        Road& motion();
+	void accelerate();
+        void slow();
+        void random();
+        void motion();
+        void merge();
+        void clearDones();
         Road& next();
         //allows printing
         friend ostream& operator<<(ostream& os, Road& r);

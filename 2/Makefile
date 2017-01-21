@@ -12,6 +12,8 @@ objects = simulation.o road.o
 .PHONY: default
 default: $(executables)
 
+$(executables): road.o
+
 $(objects): road.h
 
 .PHONY: clean

@@ -7,42 +7,31 @@ static int maxVel = 20;
 static int maxDecel = maxVel/5;
 static double phantomProbability = 0.2;
 
-Road& Road::accelerate(){
-    for(int i = 0; i < this->width(); i++){
-        for(int j = 0; j < this->larr()[i]->size(); j++){
-            Car* c = this->larr()[i]->carr()[j];
+void Road::accelerate(){
+    for(Car* c : cars){
             if(c != 0){
                 if(c->mode() == 1 && c->velocity() < maxVel){
                     c->accel();
                 }
             }
-        }
     }
-    return *this;
 }
 
 //slows a car down if it's about to crash into the thing in front of it, and if it can
-Road& Road::slow(){
-    for(int i = 0; i < this->width(); i++){
-        for(int j = 0; j < this->larr()[i]->size(); j++){
-            Car* c = this->larr()[i]->carr()[j];
+void Road::slow(){
+    for(Car* c : cars){
             if(c != 0){
-                if(c->mode() == 1 && c->getFrontPos() + c->getFrontVel() - c->velocity() < 0){
-                    int accelAmount = (c->getFrontPos() + c->getFrontVel() - c->velocity() - 1 < -maxDecel) ? 0 : c->getFrontPos() + c->getFrontVel() - c->velocity() - 1;
+                if(c->mode() == 1 && -c->getj() + this->getFront(c)->getj() + this->getFront(c)->velocity() - c->velocity() < 0){
+                    int accelAmount = (-c->getj() + this->getFront(c)->getj() + this->getFront(c)->velocity() - c->velocity() - 1 < -maxDecel) ? 0 : -c->getj() + this->getFront(c)->getj() + this->getFront(c)->velocity() - c->velocity();
                     c->accel(accelAmount); 
                 }
             }
-        }
     }
-    return *this;
-    
 }
 
 //randomly changes the velocity of some cars to be lower, based on a phantomProbability
-Road& Road::random(){
-    for(int i = 0; i < this->width(); i++){
-        for(int j = 0; j < this->larr[i]->size(); j++){
-            Car* c = this->larr[i]->carr[j];
+void Road::random(){
+    for(Car* c : cars){
             if(c != 0){
                 if(c->mode() == 1 && c->velocity() > 1){
                     double r = ((double) rand() / (RAND_MAX));
@@ -51,16 +40,12 @@ Road& Road::random(){
                     }
                 }
             }
-        }
     }
-    return *this;
 }
 
 //for all the cars that haven't done their action (if they haven't changed lanes/merged) are just moved forward by their velocity
-Road& Road::motion(){
-    for(int i = 0; i < this->width(); i++){
-        for(int j = this->larr[i]->size()-1; j >= 0; j++){
-            Car* c = this->larr[i]->carr[j];
+void Road::motion(){
+    for (Car* c : cars) {
             if(c != 0){
                 if(c->mode() == 1 && c->done() == 0){
                     if(j + (c->velocity()) >= this->larr[i]->size){
@@ -73,9 +58,7 @@ Road& Road::motion(){
                     }
                 }
             }
-        }
     }
-    return *this;
 }
 
 //handles merges and lane changes
@@ -87,28 +70,26 @@ Road& Road::motion(){
  Change lane with probability P.
 
  */
-Road& Road::merge(){
-    for(int i = 0; i < this->width(); i++){
-        for(int j = this->larr[i]->size()-1; j >= 0; j++){
+void Road::merge(){
+    for(Car* c : car){
             Car* c = this->larr[i]->carr[j];
             if(c != 0){
                 if(c->mode() == 1 && c->done() == 0){
                     
                 }
+            }
+    }
 
 }
 
 //clears the done for all living cars (mode == 1)
-Road& Road::clearDones(){
-    for(int i = 0; i < this->width(); i++){
-        for(int j = this->larr[i]->size-1; j >= 0; j++){
-            Car* c = this->larr[i]->carr[j];
+void Road::clearDones(){
+    for(Car* c : cars){
             if(c != 0){
                 if(c->mode() == 1){
                     c->setdone(0);
                 }
             }
-        }
     }
 }
 
@@ -116,14 +97,15 @@ Road& Road::clearDones(){
 //advances the entire simulation (the road) forward one time step
 Road& Road::next()
 {
-    this->accelerate();
-    this->slow();
-    this->random();
-    this->merge();
-    this->accelerate();
-    this->slow();
-    this->random();
-    this->motion();
-    this->clearDones();
-    return *this;
+    Road *r = new Road(this);
+    r->accelerate();
+    r->slow();
+    r->random();
+    r->merge();
+    r->accelerate();
+    r->slow();
+    r->random();
+    r->motion();
+    r->clearDones();
+    return r;
 }

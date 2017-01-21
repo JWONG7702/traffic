@@ -58,12 +58,13 @@ class Lane {
 
 class Road {
     public:
+        //data member
+        Lane** larray; //only call this when modifying
+       
         //get road width
         int width() const{ return wdth; }
         //get array of lanes which makes up road
         Lane** larr() const{ return larray; }
-
-        Lane** larray; //only call this when modifying
 
         //road default constructor
         Road(int b){ larray = new Lane*[b]; wdth = b; }

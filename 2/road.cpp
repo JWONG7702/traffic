@@ -41,7 +41,7 @@ void Road::random(){
                     }
                 }
             }
-    }
+    
 }
 
 //for all the cars that haven't done their action (if they haven't changed lanes/merged) are just moved forward by their velocity
@@ -105,12 +105,12 @@ int Road::hasNeighbor(Car* car, int lane){
 }
 
 Car* Road::getNeighbor(Car* car, int lane){
-    x = car.geti();
-    y = car.getj();
+    int x = car.geti();
+    int y = car.getj();
     Car* nearest = 0;
     if (this->hasNeighbor(car, lane)){
-        Lane* searchlane = this -> larr()[x+lane]
-        for (int i = 0; i< 10;i++){
+        Lane* searchlane = this -> larr()[x+lane];
+        for (int i = 0; i<maxSearchRegion;i++){
             if ( (nearest = searchlane -> carr()[y+i]) != 0){
                 return nearest;
             }

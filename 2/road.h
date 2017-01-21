@@ -16,6 +16,8 @@ class Car {
         friend ostream& operator<<(ostream& os, Car& c){os<< "[" << c.velocity() << "]"; return os;};
         int getFrontPos(Car* c);
         int getFrontVel(Car* c);
+        void setFront(Car* c);
+        void setBack(Car* c);
     private:
         int isdone;
         int vel;
@@ -33,7 +35,6 @@ class Lane {
        int size() const{return len;}
        Car** carr() const {return carray;}
        void addCar(Car* c);
-       void subCar(Car* c);
        friend ostream& operator<<(ostream& os, Lane& l);
     private:
        int len;

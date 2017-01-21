@@ -8,7 +8,7 @@ static int maxDecel = maxVel/5;
 static double phantomProbability = 0.2;
 static int maxSearchRegion = 10;
 void Road::accelerate(){
-    for(Car* c : cars){
+    for(Car* c : this->cars){
             if(c != 0){
                 if(c->mode() == 1 && c->velocity() < maxVel){
                     c->accel();
@@ -19,7 +19,7 @@ void Road::accelerate(){
 
 //slows a car down if it's about to crash into the thing in front of it, and if it can
 void Road::slow(){
-    for(Car* c : cars){
+    for(Car* c : this->cars){
             if(c != 0){
                 if(c->mode() == 1 && -c->getj() + this->getFront(c)->getj() + this->getFront(c)->velocity() - c->velocity() < 0){
                     int accelAmount = (-c->getj() + this->getFront(c)->getj() + this->getFront(c)->velocity() - c->velocity() - 1 < -maxDecel) ? 0 : -c->getj() + this->getFront(c)->getj() + this->getFront(c)->velocity() - c->velocity();
@@ -31,7 +31,7 @@ void Road::slow(){
 
 //randomly changes the velocity of some cars to be lower, based on a phantomProbability
 void Road::random(){
-    for(Car* c : cars) {
+    for(Car* c : this->cars) {
             // srand(time(NULL));
             if(c != 0) {
                 if(c->mode() == 1 && c->velocity() > 1){
@@ -46,7 +46,7 @@ void Road::random(){
 
 //for all the cars that haven't done their action (if they haven't changed lanes/merged) are just moved forward by their velocity
 void Road::motion(){
-    for (Car* c : cars) {
+    for (Car* c : this->cars) {
         int x = c->geti();
         int y = c->getj();
             if(c != 0){
@@ -74,7 +74,7 @@ void Road::motion(){
 
  */
 void Road::merge(){
-    for(Car* c : car){
+    for(Car* c : this->cars){
             if(c != 0){
                 if(c->mode() == 1 && c->done() == 0){
                     
@@ -86,7 +86,7 @@ void Road::merge(){
 
 //clears the done for all living cars (mode == 1)
 void Road::clearDones(){
-    for(Car* c : cars){
+    for(Car* c : this->cars){
             if(c != 0){
                 if(c->mode() == 1){
                     c->setdone(0);
@@ -97,6 +97,7 @@ void Road::clearDones(){
 
 //checks if the lane is there
 int Road::hasNeighbor(Car* car, int lane){
+    int x = car.geti();
     if (x+lane >=0 && x+lane <= (this -> width()){
         return 0;
     } else {
@@ -105,11 +106,11 @@ int Road::hasNeighbor(Car* car, int lane){
 }
 
 Car* Road::getNeighbor(Car* car, int lane){
-    x = car.geti();
-    y = car.getj();
+    int x = car.geti();
+    int y = car.getj();
     Car* nearest = 0;
     if (this->hasNeighbor(car, lane)){
-        Lane* searchlane = this -> larr()[x+lane]
+        Lane* searchlane = this -> larr()[x+lane];
         for (int i = 0; i< 10;i++){
             if ( (nearest = searchlane -> carr()[y+i]) != 0){
                 return nearest;

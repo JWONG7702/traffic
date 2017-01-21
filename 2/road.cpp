@@ -1,5 +1,5 @@
-#include <cstdio>
-#include <ctime>
+#include <stdio.h>
+// #include <time.h>
 
 #include "road.h"
 
@@ -31,8 +31,9 @@ void Road::slow(){
 
 //randomly changes the velocity of some cars to be lower, based on a phantomProbability
 void Road::random(){
-    for(Car* c : cars){
-            if(c != 0){
+    for(Car* c : cars) {
+            // srand(time(NULL));
+            if(c != 0) {
                 if(c->mode() == 1 && c->velocity() > 1){
                     double r = ((double) rand() / (RAND_MAX));
                     if(r < phantomProbability){
@@ -48,7 +49,7 @@ void Road::motion(){
     for (Car* c : cars) {
             if(c != 0){
                 if(c->mode() == 1 && c->done() == 0){
-                    if(j + (c->velocity()) >= this->larr[i]->size){
+                    if(c->getj + (c->velocity()) >= this->larr[i]->size){
                         this->larr[i]->carr[j] = 0;
                         
                     } else {
@@ -121,5 +122,5 @@ Road& Road::next()
     r->random();
     r->motion();
     r->clearDones();
-    return r;
+    return *r;
 }

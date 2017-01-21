@@ -13,21 +13,21 @@ class Car {
         //get car isdone status
         int done() const{ return isdone; }
         //set car isdone status
-        int setdone(int newstate) {return isdone = newstate; }
+        int setdone(int newstate) { return isdone = newstate; }
         //default car constructor
-        Car(int i, int j, int v, int m = 1, int d = 0){x = i, y = j, vel = v;m = state;isdone = d;}
+        Car(int i, int j, int v, int m = 1, int d = 0) {x = i, y = j, vel = v;m = state;isdone = d; }
         //car destructor
         ~Car();
         //accelerate by 1
-        void accel( int i = 1) { vel += i; }
+        void accel(int i = 1) { vel += i; }
         //allows printing
         friend ostream& operator<<(ostream& os, Car& c){ os<< "[" << c.velocity() << "]"; return os; };
         //get own position
-        int geti() const{ return x;}
-        int getj() const{return y;}
+        int geti() const{ return x; }
+        int getj() const{ return y; }
         //set own position
-        int seti(int i) const{ return x=i;}
-        int setj(int j) const{return y=j;}
+        int seti(int i) { return x=i; }
+        int setj(int j) { return y=j; }
     private:
         int isdone;
         int vel;

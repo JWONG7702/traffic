@@ -14,7 +14,7 @@ int main(){
     r->larr()[0] = l1;
     r->larr()[1] = l2;
 
-    for(int i = 0; i<r->length(); i++) {
+    for(int i = 0; i<r->width(); i++) {
 	for(int j=0; j<r->larr()[i]->size(); j++) {
             if(Car* it = r->larr()[i]->carr()[j]) cout << it->velocity()<<endl;
         }

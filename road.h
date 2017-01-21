@@ -16,8 +16,8 @@ class Car {
 class Lane {
     public:
     //vector of sharedpointer of cars
-       int size;
        Car** carr;
+       int size;
        Lane(int l){ carr = new Car*[l]; size = l;}
 };
 

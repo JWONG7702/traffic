@@ -8,7 +8,7 @@ int main(){
     l->carr[1] = c;
     
     for (int i = 0; i< 2; i++){
-        cout << l->carr[i]->velocity<<endl;
+        cout << *(l->carr[i]) <<endl;
     }
 }
 //anun, pass it on

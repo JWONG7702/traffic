@@ -27,6 +27,7 @@ class Lane {
        void addCar(Car* c){
            carray[0] = c;
        }
+       friend ostream& operator<<(ostream& os, Lane& l);
     private:
        int len;
        Car** carray;
@@ -45,6 +46,7 @@ class Road {
         Road& random();
         Road& motion();
         Road& next();
+        friend ostream& operator<<(ostream& os, Road& r);
     private: 
         int len;
         Lane** larray;

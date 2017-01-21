@@ -6,7 +6,7 @@
 static int maxVel = 20;
 static int maxDecel = maxVel/5;
 static double phantomProbability = 0.2;
-
+static int maxSearchRegion = 10;
 void Road::accelerate(){
     for(Car* c : cars){
             if(c != 0){
@@ -99,7 +99,7 @@ Car* Road::getNeighbor(Car* car, int lane){
     Car* nearest = 0;
     if (j+lane >=0 && j+lane <= (this -> width()){
         Lane* searchlane = this -> larr()[j+lane]
-        for (int i = 0; i< 10;i++){
+        for (int i = 0; i< maxSearchRegion;i++){
             if ( (nearest = searchlane -> carr()[x+i]) != 0){
                 return nearest;
             }

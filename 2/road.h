@@ -8,13 +8,16 @@ class Car {
     public:
         int velocity() const{ return vel;}
         int mode() const{ return state;}
-        Car(int v, int m = 1){vel = v;m = state;}
+        int done() const{ return isdone;}
+        int setdone(int newstate) {isdone = newstate;}
+        Car(int v, int m = 1, int d = 0){vel = v;m = state;isdone = d;}
         ~Car();
         void accel( int i = 1) { vel += i;}
         friend ostream& operator<<(ostream& os, Car& c){os<< "[" << c.velocity() << "]"; return os;};
         int getFrontPos(Car* c);
         int getFrontVel(Car* c);
     private:
+        int isdone;
         int vel;
         int state;
         int pos;
@@ -26,7 +29,7 @@ class Lane {
     public:
     //vector of sharedpointer of cars
        Lane(int l){ carray = new Car*[l]; len = l;}
-       ~Lane(){delete carray;}
+       ~Lane(){delete[] carray;}
        int size() const{return len;}
        Car** carr() const {return carray;}
        void addCar(Car* c);
@@ -39,9 +42,11 @@ class Lane {
 
 class Road {
     public:
+        
         int length() const{return len;}
         Lane** larr() const{return larray;}
         Road(int b){ larray = new Lane*[b]; len = b;}
+        ~Road(){ delete[] larray;}
         void addLane(Lane* lpt, int i){
             larray[i] = &(*lpt);
         }

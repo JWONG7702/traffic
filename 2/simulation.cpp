@@ -1,4 +1,5 @@
 #include "road.h"
+
 int main(){
     Car* c1 = new Car(3);
     c1->accel(9);
@@ -13,7 +14,7 @@ int main(){
     r->larr[0] = l1;
     r->larr[1] = l2;
 
-    for(int i = 0; i<r->count; i++) {
+    for(int i = 0; i<r->length(); i++) {
 	for(int j=0; j<r->larr[i]->size(); j++) {
             if(Car* it = r->larr[i]->carr()[j]) cout << it->velocity()<<endl;
         }

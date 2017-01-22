@@ -70,7 +70,8 @@ class Road {
         Road(int b){ larray = new Lane*[b]; wdth = b;cars = new list<Car*>  }
         //road destructor
         ~Road(){ delete[] larray; }
-         
+        //copy constructor
+        Road(const Road& r); 
         //add new lane to road
         void addLane(Lane* lpt, int i){
             larray[i] = &(*lpt);

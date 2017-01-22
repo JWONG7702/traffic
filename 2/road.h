@@ -47,11 +47,9 @@ class Lane {
 
        Car** carray; //only call this when modifying
        //get lane size
-       int size() const{ return len; }
+       int size() const { return len; }
        //get array of cars which makes up lane
        Car** carr() const { return carray; }
-       //add new car to lane
-       void addCar(Car* c);
        //allows printing
        friend ostream& operator<<(ostream& os, Lane& l);
     private:
@@ -87,14 +85,14 @@ class Road {
         //get neighbors
         int hasNeighbor(Car* car, int i);
         Car* getNeighbor(Car* car, int lane);
-        int hasLeft(Car* car){return hasNeighbor(car,-1);};
-        int hasRight(Car* car){return hasNeighbor(car,1);};
-        Car* getFront(Car* car){return getNeighbor(car,-1);};
-        Car* getRight(Car* car){return getNeighbor(car,0);};
-        Car* getLeft(Car* car){return getNeighbor(car,1);};
+        int hasLeft(Car* car) {return this->hasNeighbor(car,-1);}
+        int hasRight(Car* car) {return this->hasNeighbor(car,1);}
+        Car* getFront(Car* car) {return this->getNeighbor(car,0);}
+        Car* getRight(Car* car) {return this->getNeighbor(car,1);}
+        Car* getLeft(Car* car) {return this->getNeighbor(car,-1);}
         Car* getNeighbor(Car* car, int i, int dir);
-        Car* getRightBack(Car* car){return getNeighbor(car, -1, -1);}
-        Car* getLeftBack(Car* car){return getNeighbor(car,1, -1);}
+        Car* getRightBack(Car* car) {return this->getNeighbor(car, -1, -1);}
+        Car* getLeftBack(Car* car) {return this->getNeighbor(car,-1, -1);}
         //road evolution methods
 	void accelerate();
         void slow();

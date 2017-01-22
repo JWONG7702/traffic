@@ -1,6 +1,7 @@
 #include <stdio.h>
 // #include <time.h>
 #include <list>
+#include "lane.cpp"
 #include "road.h"
 
 static int maxVel = 20;
@@ -79,6 +80,25 @@ void Road::motion(){
     }
 }
 
+//dir = 1 means search forward
+//dir = -1 means search forward
+Car* Road::getNeighbor(Car* car, int lane, int dir){
+    int x = car -> geti();
+    int y = car -> getj();
+    Car* nearest = 0;
+    if (this->hasNeighbor(car, lane)){
+        Lane* searchlane = this -> larr()[x+lane];
+        for (int i = 0; i< maxSearchRegion;i++){
+            if ( (nearest = searchlane -> carr()[y+(dir*i)]) != 0){
+
+                return nearest;
+            }
+        } 
+        return nearest;//will be null if empty
+    }
+    return nearest;//never reached b/c always check if has neighbor before you run this method
+}
+
 //handles merges and lane changes
 /*
  Car checks maximum speed it can achieve on it's current position (x, lane) and adjacent lane (x, lane+1).
@@ -91,85 +111,87 @@ void Road::motion(){
 void Road::merge() {
     int whichWay = 0;
     for(Car* c : this->cars) {
-            if(c != 0) {
-                if(c->mode() == 1 && c->done() == 0) {
-                    if(this->hasRight(c)) {
-                        Car* d = this->getRight(c);
-                        Car* f = this->getFront(c);
-                        if(d == 0) whichWay = 1;
-                        if(whichWay == 0 && d != 0){
-                            if(d->getj() + d->velocity() - c->getj() > f->getj() + f->velocity() - c->getj()) whichWay = 1;
-                        }
-                    } 
-                    else if(this->hasLeft(c)) {
-                        Car* e = this->getLeft(c);
-                        Car* f = this->getFront(c);
-                        if(e == 0) whichWay = -1;
-                        if(whichWay == 0 && e != 0){
-                            if(e->getj() + e->velocity() - c->getj() > f->getj() + f->velocity() - c->getj()) whichWay = -1;
-                        }
+        if(c != 0) {
+            if(c->mode() == 1 && c->done() == 0) {
+                if(this->hasRight(c)) {
+                    Car* d = this->getRight(c);
+                    Car* f = this->getFront(c);
+                    if(d == 0) whichWay = 1;
+                    if(whichWay == 0 && d != 0) {
+                        if(d->getj() + d->velocity() - c->getj() > f->getj() + f->velocity() - c->getj()) whichWay = 1;
                     }
+                } 
 
-                    if(whichWay == 1) {
-                        if(this->hasNeighbor(c, 2)) {
-                            Car* fg = this->getNeighbor(c, 2);
-                            Car* prev = this->getRightBack(c);
-                            if(fg != 0) {
-                                if(fg->getj() == c->getj()) whichWay = 0;
-                                else if (prev != 0) {
-                                    if(prev->velocity() > c->getj() - prev->getj()) whichWay = 0;
-                                }
-                            }
-                        }
+                else if(this->hasLeft(c)) {
+                    Car* e = this->getLeft(c);
+                    Car* f = this->getFront(c);
+                    if(e == 0) whichWay = -1;
+                    if(whichWay == 0 && e != 0){
+                        if(e->getj() + e->velocity() - c->getj() > f->getj() + f->velocity() - c->getj()) whichWay = -1;
                     }
+                }
 
-                    if(whichWay == -1) {
-                        if(this->hasNeighbor(c, -2)) {
-                            Car* fg = this->getNeighbor(c, -2);
-                            Car* prev = this->getLeftBack(c);
-                            if(fg != 0) {
-                                if(fg->getj() == c->getj()) whichWay = 0;
-                                else if (prev != 0){
-                                    if(prev->velocity() > c->getj() - prev->getj()) whichWay = 0;
-                                }
+                if(whichWay == 1) {
+                    if(this->hasNeighbor(c, 2)) {
+                        Car* fg = this->getNeighbor(c, 2);
+                        Car* prev = this->getRightBack(c);
+                        if(fg != 0) {
+                            if(fg->getj() == c->getj()) whichWay = 0;
+                            else if (prev != 0) {
+                                if(prev->velocity() > c->getj() - prev->getj()) whichWay = 0;
                             }
                         }
                     }
+                }
 
-                    if(whichWay == 1){
-                        double r = ((double) rand() / (RAND_MAX));
-                        if(r < mergingProbability){
-                             int x = c->geti();
-                             if(c->getj() + (c->velocity()) >= this->larr()[x]->size()){
-                                this->larray[x]->carray[y] = 0;
-                                
-                            } else {
-                                this->larray[x+1]->carray[y+(c->velocity())] = c;
-                                c->setdone(1);
-                                this->larray[x]->carray[y] = 0;
+                if(whichWay == -1) {
+                    if(this->hasNeighbor(c, -2)) {
+                        Car* fg = this->getNeighbor(c, -2);
+                        Car* prev = this->getLeftBack(c);
+                        if(fg != 0) {
+                            if(fg->getj() == c->getj()) whichWay = 0;
+                            else if (prev != 0) {
+                                if(prev->velocity() > c->getj() - prev->getj()) whichWay = 0;
                             }
-
-                                c->setdone(1);
-                            }
-
                         }
-                    else if (whichWay == -1){
-                        double r = ((double) rand() / (RAND_MAX));
-                        if(r < mergingProbability){
-                             int x = c->geti();
-                             if(c->getj() + (c->velocity()) >= this->larr()[x]->size()){
-                                this->larray[x]->carray[y] = 0;
-                                
-                            } else {
-                                this->larray[x-1]->carray[y+(c->velocity())] = c;
-                                c->setdone(1);
-                                this->larray[x]->carray[y] = 0;
-                            }
+                    }
+                }
 
-                                c->setdone(1);
-                            }
-
+                if(whichWay == 1) {
+                    double r = ((double) rand() / (RAND_MAX));
+                    if(r < mergingProbability) {
+                        int x = c->geti();
+                        int y = c->getj();
+                        if(c->getj() + (c->velocity()) >= this->larr()[x]->size()) {
+                            this->larray[x]->carray[y] = 0;       
                         }
+ 
+                        else {
+                            this->larray[x+1]->carray[y+(c->velocity())] = c;
+                            c->setdone(1);
+                            this->larray[x]->carray[y] = 0;
+                        }
+
+                        c->setdone(1);
+                    }
+                }
+
+                else if (whichWay == -1) {
+                    double r = ((double) rand() / (RAND_MAX));
+                    if(r < mergingProbability) {
+                        int x = c->geti();
+                        int y = c->getj();
+                        if(c->getj() + (c->velocity()) >= this->larr()[x]->size()) {
+                            this->larray[x]->carray[y] = 0;                                
+                        } 
+
+                        else {
+                            this->larray[x-1]->carray[y+(c->velocity())] = c;
+                            c->setdone(1);
+                            this->larray[x]->carray[y] = 0;
+                        }
+
+                            c->setdone(1);
                     }
                 }
             }
@@ -198,28 +220,10 @@ int Road::hasNeighbor(Car* car, int lane){
     }
 }
 
-//dir = 1 means search forward
-//dir = -1 means search forward
-Car* Road::getNeighbor(Car* car, int lane, int dir){
-    int x = car -> geti();
-    int y = car -> getj();
-    Car* nearest = 0;
-    if (this->hasNeighbor(car, lane)){
-        Lane* searchlane = this -> larr()[x+lane];
-        for (int i = 0; i< maxSearchRegion;i++){
-            if ( (nearest = searchlane -> carr()[y+(dir*i)]) != 0){
-
-                return nearest;
-            }
-        } 
-        return nearest;//will be null if empty
-    }
-    return nearest;//never reached b/c always check if has neighbor before you run this method
-}
 //advances the entire simulation (the road) forward one time step
 Road& Road::next()
 {
-    Road *r = new Road(this);
+    Road *r = new Road(*this);
     r->accelerate();
     r->slow();
     r->random();

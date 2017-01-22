@@ -17,6 +17,7 @@ int main (){
     arroflanes[0] = l1;
     arroflanes[1] = l2;
     Road *r = new Road(arroflanes, 2);
+    Road street = new Road(*r);
     cout << *r <<endl;    
 
 

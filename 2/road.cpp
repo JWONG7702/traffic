@@ -15,6 +15,7 @@ static int maxSearchRegion = 10;
 
 //copy constructor for road
 Road::Road(const Road& r) {
+    
     wdth = r.wdth;
     cars = r.cars;
     larray = new Lane*[wdth];

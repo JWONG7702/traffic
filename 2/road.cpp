@@ -31,40 +31,38 @@ Road::Road(const Road& r) {
 //acclerate a car (default is by one)
 void Road::accelerate() {
     for(Car* c : this->cars){
-            if(c != 0){
-                if(c->mode() == 1 && c->velocity() < maxVel){
-                    c->accel();
-                }
+        if(c != 0){
+            if(c->mode() == 1 && c->velocity() < maxVel){
+                c->accel();
             }
+        }
     }
 }
 
 //slows a car down if it's about to crash into the thing in front of it, and if it can
 void Road::slow(){
-    for(Car* c : this->cars){
-            if(c != 0){
-                if(c->mode() == 1 && -c->getj() + this->getFront(c)->getj() + this->getFront(c)->velocity() - c->velocity() < 0){
-                    int accelAmount = (-c->getj() + this->getFront(c)->getj() + this->getFront(c)->velocity() - c->velocity() - 1 < -maxDecel) ? 0 : -c->getj() + this->getFront(c)->getj() + this->getFront(c)->velocity() - c->velocity();
-                    c->accel(accelAmount); 
-                }
+    for(Car* c : this->cars) {
+        if(c != 0) {
+            if(c->mode() == 1 && -c->getj() + this->getFront(c)->getj() + this->getFront(c)->velocity() - c->velocity() < 0){
+                int accelAmount = (-c->getj() + this->getFront(c)->getj() + this->getFront(c)->velocity() - c->velocity() - 1 < -maxDecel) ? 0 : -c->getj() + this->getFront(c)->getj() + this->getFront(c)->velocity() - c->velocity();
+                c->accel(accelAmount); 
             }
+        }
     }
 }
 
 //randomly changes the velocity of some cars to be lower, based on a phantomProbability
 void Road::random(){
     for(Car* c : this->cars) {
-            unsigned seed = chrono::system_clock::now().time_since_epoch().count();
-            mt19937 gen(seed);
-            uniform_real_distribution<double> dist(0.0,1.0);
-            if(c != 0) {
-                if(c->mode() == 1 && c->velocity() > 1){
-                    double r = dist(gen);
-                    if(r < phantomProbability){
-                        c->accel(-1);
-                    }
-                }
+        unsigned seed = chrono::system_clock::now().time_since_epoch().count();
+        mt19937 gen(seed);
+        uniform_real_distribution<double> dist(0.0,1.0);
+        if(c != 0) {
+            if(c->mode() == 1 && c->velocity() > 1){
+                double r = dist(gen);
+                if(r < phantomProbability) c->accel(-1);
             }
+        }
     } 
 }
 
@@ -95,8 +93,7 @@ Car* Road::getNeighbor(Car* car, int lane, int dir){
     if (this->hasNeighbor(car, lane)){
         Lane* searchlane = this -> larr()[x+lane];
         for (int i = 0; i< maxSearchRegion;i++){
-            if ( (nearest = searchlane -> carr()[y+(dir*i)]) != 0){
-
+            if ( (nearest = searchlane -> carr()[y+(dir*i)]) != 0) {
                 return nearest;
             }
         } 
@@ -207,29 +204,26 @@ void Road::merge() {
 
 //clears the done for all living cars (mode == 1)
 void Road::clearDones() {
-    for(Car* c : this->cars){
-            if(c != 0){
-                if(c->mode() == 1){
-                    c->setdone(0);
-                }
+    for(Car* c : this->cars) {
+        if(c != 0) {
+            if(c->mode() == 1) {
+                c->setdone(0);
             }
+        }
     }
 }
 
 //checks if the lane is there
 int Road::hasNeighbor(Car* car, int lane){
     int x = car->geti();
-    if (x+lane >=0 && x+lane <= (this -> width())){
-        return 0;
-    } else {
-        return 1;
-    }
+    if (x+lane >=0 && x+lane <= (this -> width())) return 0;
+    else return 1;
 }
 
 //advances the entire simulation (the road) forward one time step
 Road& Road::next()
 {
-    Road *r = new Road(this->larr(), this->width());
+    Road *r = new Road(this->larr(), this->width(), this->cars);
     r->accelerate();
     r->slow();
     r->random();

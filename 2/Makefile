@@ -6,7 +6,7 @@ INCLUDE =
 CFLAG = -g -Wall $(INCLUDE)
 CXXFLAGS = -g -Wall $(INCLUDE) -std=c++11
 
-executables = simulation 
+executables = simulation test1 
 objects = simulation.o road.o lane.o
 
 .PHONY: default

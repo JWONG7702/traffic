@@ -103,7 +103,7 @@ class Road {
         void clearDones();
         Road& next();
         //allows printing
-        friend ostream& operator<<(ostream& os, Road& r);
+        friend ostream& operator<<(ostream& os, Road& r){os<<"<--\n"; for (int i = 0; i < r.wdth; i++){os<<i<<": "<<r.larray[i]<<endl;}os<<"-->\n";return os;}
 
         
     private: 

@@ -7,7 +7,22 @@ static int maxVel = 20;
 static int maxDecel = maxVel/5;
 static double phantomProbability = 0.2;
 static int maxSearchRegion = 10;
-void Road::accelerate(){
+
+//copy constructor for road
+Road::Road(const Road& r) {
+    wdth = r.wdth;
+    cars = new list<Car*>;
+    cars = r.cars;
+    larray = new Lane*[wdth];
+
+    for(int i=0;i<wdth;i++) {
+        Lane* temp = new Lane(r.larr() + i*sizeof(Lane*));
+        larray[i] = temp;
+    }
+}
+
+//acclerate a car (default is by one)
+void Road::accelerate() {
     for(Car* c : this->cars){
             if(c != 0){
                 if(c->mode() == 1 && c->velocity() < maxVel){

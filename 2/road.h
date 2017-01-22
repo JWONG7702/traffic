@@ -68,6 +68,9 @@ class Road {
 
         //road default constructor
         Road(int b){ larray = new Lane*[b]; wdth = b;cars = new list<Car*>  }
+
+        //road copy constructor
+        Road(const Road& r);
         //road destructor
         ~Road(){ delete[] larray; }
          

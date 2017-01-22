@@ -45,6 +45,14 @@ class Lane {
        //copy constructor
        Lane(const Lane& l);
 
+       int i;
+
+       int geti(){return i;}
+
+       int seti(int val){return i=val;}
+
+       void clearLane(){ carray = new Car*[len];}
+
        Car** carray; //only call this when modifying
        //get lane size
        int size() const { return len; }
@@ -54,6 +62,8 @@ class Lane {
        friend ostream& operator<<(ostream& os, Lane& l){os<<"||"; for (int i= 0; i< l.size(); i++ ){os<<*(l.carray[i]);  }  ;os<<"||"<<endl;return os;};
     private:
        int len;
+
+       void addCar(Car* c, int j = 0){ this->carray[j] = c; c->seti(this->geti()); c->setj(j); }
 };
 
 class Road {
@@ -81,6 +91,7 @@ class Road {
         //add new lane to road
         void addLane(Lane* lpt, int i){
             larray[i] = &(*lpt);
+            lpt->seti(i);
         }
         //get neighbors
         int hasNeighbor(Car* car, int i);

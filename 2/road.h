@@ -84,13 +84,12 @@ class Road {
         }
         //get neighbors
         int hasNeighbor(Car* car, int i);
-        Car* getNeighbor(Car* car, int lane);
         int hasLeft(Car* car) {return this->hasNeighbor(car,-1);}
         int hasRight(Car* car) {return this->hasNeighbor(car,1);}
         Car* getFront(Car* car) {return this->getNeighbor(car,0);}
         Car* getRight(Car* car) {return this->getNeighbor(car,1);}
         Car* getLeft(Car* car) {return this->getNeighbor(car,-1);}
-        Car* getNeighbor(Car* car, int i, int dir);
+        Car* getNeighbor(Car* car, int i, int dir = 1);
         Car* getRightBack(Car* car) {return this->getNeighbor(car, -1, -1);}
         Car* getLeftBack(Car* car) {return this->getNeighbor(car,-1, -1);}
         //road evolution methods

@@ -1,30 +1,43 @@
 #include "road.h"
+#include <iostream>
 #include <chrono>
 #include <random>
+#include <vector>
+#include <numeric>
+
+static double density = 0.2;
 
 int main() {
     unsigned seed = chrono::system_clock::now().time_since_epoch().count();
     mt19937 gen(seed);
     uniform_real_distribution<double> dist(0.0,1.0);
+    cout << "random is easy" << endl;
+    Lane* l = new Lane(2000);
+    cout << "lane construction successful" << endl;
+    Road* r = new Road(1);
+    r->larr()[0] = l;
+    l->i = 0;
+    cout << "road construction and addition successful" << endl;
+    for(int i=0;i<1000;i++) {
+        cout << "entered loop" << endl;
+        if(dist(gen) > density) l->addCar(0);
+        cout << "added car" << endl;
+        r->next();
+        cout << "went next" << endl;
+    }
+    cout << "preliminary run successful" << endl;
+    vector<double> vels;
 
-    Car* c1 = new Car(0,0,3);
-    c1->accel(9);
-    Car* c2 = new Car(0,0,3);
-
-    Lane* l1 = new Lane(200);
-    l1->carr()[0] = c1;
-    l1->carr()[100] = c2;
-    Lane* l2 = new Lane(100);
-    
-    Road* r = new Road(2);
-    r->larr()[0] = l1;
-    r->larr()[1] = l2;
-
-    for(int i = 0; i<r->width(); i++) {
-	for(int j=0; j<r->larr()[i]->size(); j++) {
-            if(Car* it = r->larr()[i]->carr()[j]) cout << it->velocity()<<endl;
+    for(int i=0;i<1000;i++) {
+	if(dist(gen) > density) l->addCar(0);
+        r->next();
+        for(Car* c : r->cars) {
+            if(c->getj() > 1000) vels.push_back((double) c->velocity());
         }
     }
+    cout << "we should finish if here" << endl;
+    double result = accumulate(vels.begin(), vels.end(), 0.0)/vels.size();
+    cout << result << endl;
 }
 //anun, pass it on
 //anoon, pass it on

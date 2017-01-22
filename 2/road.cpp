@@ -89,11 +89,57 @@ void Road::motion(){
 
  */
 void Road::merge(){
+    int whichWay = 0;
     for(Car* c : this->cars){
             if(c != 0){
                 if(c->mode() == 1 && c->done() == 0){
-                    
+                    if(this->hasRight(c)){
+                        Car* d = this->getRight(c);
+                        Car* f = this->getFront(c);
+                        if(d == 0){
+                            whichWay = 1;
+                        }
+                        if(whichWay == 0 && d != 0){
+                            if(d->getj() + d->velocity() - c->getj() > f->getj() + f->velocity() - c->getj() )
+                                whichWay = 1;
+                        }
+                    } else if(this->hasLeft(c)){
+                        Car* e = this->getLeft(c);
+                        if(e == 0){
+                            whichWay = -1;
+                        }
+                        if(whichWay == 0 && e != 0){
+                            if(e->getj() + e->velocity() - c->getj() > f->getj() + f->velocity() - c->getj() )
+                                whichWay = -1;
+                        }
+
+
+
+
+                    }
+
+                    if(whichWay == 1){
+                        if(c->hasNeighbor(car, 2)){
+                            Car* f = c->getNeighbor(car, 2);
+                            Car* prev = c->getRightBack();
+                            if(f != 0){
+                                if(f->getj() == c->getj()){
+                                    whichWay = 0;
+                                } else if (prev != 0){
+                                    if(prev->velocity() > c->getj() - prev->getj()){
+                                        
+                                    }
+                                }
+
+                            } else {
+
+                            }
+
+                        }
+                    }
                 }
+
+
             }
     }
 

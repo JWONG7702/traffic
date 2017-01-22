@@ -4,9 +4,9 @@
 using namespace std;
 int main (){
     cout << "woeifn" << endl;
-    Car* c1 = new Car(0,0,3);
-    c1->accel(9);
-    Car* c2 = new Car(0,0,3);
+    Car* c1 = new Car(0,0,1);
+    //c1->accel(9);
+    Car* c2 = new Car(0,10,2);
     cout << *c2 << *c1 << endl;
     list<Car*>* carlist = new list<Car*>();
     carlist->push_front(c1);
@@ -23,7 +23,7 @@ int main (){
     cout << *r <<endl;    
     
     list<Road>* simulation = new list<Road>();
-    for (int i = 0; i < 10; i++){
+    for (int i = 0; i < 4; i++){
         simulation->push_front(*r);
         r = &(r->next());
     } 

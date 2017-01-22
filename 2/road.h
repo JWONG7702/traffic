@@ -15,7 +15,7 @@ class Car {
         //set car isdone status
         int setdone(int newstate) { return isdone = newstate; }
         //default car constructor
-        Car(int i, int j, int v, int m = 1, int d = 0) {x = i, y = j, vel = v; state=m;isdone = d; }
+        Car(int i, int j, int v, int m = 1, int d = 0) { cout<< "newcar";x = i; y = j; vel = v; state=m;isdone = d; }
         //car destructor
         //~Car();
         //accelerate by 1

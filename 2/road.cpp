@@ -13,7 +13,8 @@ static double phantomProbability = 0.2;
 static double mergingProbability = 0.1;
 static int maxSearchRegion = 10;
 
-//copy constructor for road
+/*
+//DEPRECATED: copy constructor for road
 Road::Road(const Road& r) {
     
     wdth = r.wdth;
@@ -25,6 +26,7 @@ Road::Road(const Road& r) {
         larray[i] = temp;
     }
 }
+*/
 
 //acclerate a car (default is by one)
 void Road::accelerate() {
@@ -67,22 +69,20 @@ void Road::random(){
 }
 
 //for all the cars that haven't done their action (if they haven't changed lanes/merged) are just moved forward by their velocity
-void Road::motion(){
+void Road::motion() {
     for (Car* c : this->cars) {
         int x = c->geti();
         int y = c->getj();
-            if(c != 0){
-                if(c->mode() == 1 && c->done() == 0){
-                    if(c->getj() + (c->velocity()) >= this->larr()[x]->size()){
-                        this->larray[x]->carray[y] = 0;
-                        
-                    } else {
-                        this->larray[x]->carray[y+(c->velocity())] = c;
-                        c->setdone(1);
-                        this->larray[x]->carray[y] = 0;
-                    }
+        if(c != 0){
+            if(c->mode() == 1 && c->done() == 0){
+                if(c->getj() + (c->velocity()) >= this->larr()[x]->size()) this->larray[x]->carray[y] = 0;   
+                else {
+                    this->larray[x]->carray[y+(c->velocity())] = c;
+                    c->setdone(1);
+                    this->larray[x]->carray[y] = 0;
                 }
             }
+        }
     }
 }
 
@@ -229,26 +229,15 @@ int Road::hasNeighbor(Car* car, int lane){
 //advances the entire simulation (the road) forward one time step
 Road& Road::next()
 {
-    cout << "entered next" << endl;
-    Road *r = new Road(*this);
-    cout << "build succeeded" << endl;
+    Road *r = new Road(this->larr(), this->width());
     r->accelerate();
-    cout << "accelerate pt1 succeeded" << endl;
     r->slow();
-    cout << "slow pt1 succeeded" << endl;
     r->random();
-    cout << "random pt1 succeeded" << endl;
     r->merge();
-    cout << "merge succeeded" << endl;
     r->accelerate();
-    cout << "accelerate pt2 succeeded" << endl;
     r->slow();
-    cout << "slow pt2 succeeded" << endl;
     r->random();
-    cout << "random pt2 succeeded" << endl;
     r->motion();
-    cout << "motion succeeded" << endl;
     r->clearDones();
-    cout << "clearDones succeeded" << endl;
     return *r;
 }

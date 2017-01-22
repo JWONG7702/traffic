@@ -89,8 +89,8 @@ class Road {
         }
         //road destructor
         ~Road(){ delete[] larray; }
-        //copy constructor
-        Road(const Road& r); 
+        //DEPRECATED: copy constructor
+        //Road(const Road& r); 
 
         //DATA CONTAINERS
         //data member

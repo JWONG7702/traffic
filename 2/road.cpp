@@ -212,8 +212,8 @@ void Road::clearDones() {
 //checks if the lane is there
 int Road::hasNeighbor(Car* car, int lane){
     int x = car->geti();
-    if (x+lane >=0 && x+lane <= (this -> width())) return 0;
-    else return 1;
+    if (x+lane >=0 && x+lane <= (this -> width()-1)) return 1;
+    else return 0;
 }
 
 //advances the entire simulation (the road) forward one time step

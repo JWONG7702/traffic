@@ -11,10 +11,10 @@ int main (){
     list<Car*>* carlist = new list<Car*>();
     carlist->push_front(c1);
     carlist->push_front(c2);
-    Lane* l1 = new Lane(20);
+    Lane* l1 = new Lane(50);
     l1->carr()[0] = c1;
     l1->carr()[10] = c2;
-    Lane* l2 = new Lane(10);
+    Lane* l2 = new Lane(50);
     cout << *l1 << endl;
     Lane** arroflanes = new Lane*();
     arroflanes[0] = l1;

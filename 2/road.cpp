@@ -31,11 +31,11 @@ Road::Road(const Road& r) {
 //acclerate a car (default is by one)
 void Road::accelerate() {
     for(Car* c : this->cars){
-            if(c != 0){
-                if(c->mode() == 1 && c->velocity() < maxVel){
-                    c->accel();
-                }
+        if(c != 0){
+            if(c->mode() == 1 && c->velocity() < maxVel){
+                c->accel();
             }
+        }
     }
 }
 

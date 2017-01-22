@@ -47,8 +47,6 @@ class Lane {
 
        int i;
 
-       int geti(){return i;}
-
        int seti(int val){return i=val;}
 
        void clearLane(){ carray = new Car*[len];}
@@ -68,7 +66,7 @@ class Lane {
                 os<<"||"<<endl;
                 return os;
        }
-       void addCar(Car* c, int j = 0){ this->carray[j] = c; c->seti(this->geti()); c->setj(j); }
+       void addCar(int j = 0){ Car* c = new Car(this->i, j, 0); this->carray[j] = c; }
 
     private:
        int len;

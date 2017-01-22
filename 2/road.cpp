@@ -1,6 +1,6 @@
 #include <stdio.h>
 // #include <time.h>
-
+#include <list>
 #include "road.h"
 
 static int maxVel = 20;
@@ -11,12 +11,11 @@ static int maxSearchRegion = 10;
 //copy constructor for road
 Road::Road(const Road& r) {
     wdth = r.wdth;
-    cars = new list<Car*>;
     cars = r.cars;
     larray = new Lane*[wdth];
 
     for(int i=0;i<wdth;i++) {
-        Lane* temp = new Lane(r.larr() + i*sizeof(Lane*));
+        Lane* temp = new Lane(*(r.larr()[i]));
         larray[i] = temp;
     }
 }

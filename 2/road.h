@@ -86,6 +86,7 @@ class Road {
         }
         //get neighbors
         int hasNeighbor(Car* car, int i);
+        Car* getNeighbor(Car* car, int lane);
         int hasLeft(Car* car){return hasNeighbor(car,-1);};
         int hasRight(Car* car){return hasNeighbor(car,1);};
         Car* getFront(Car* car){return getNeighbor(car,-1);};

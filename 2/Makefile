@@ -4,7 +4,7 @@ CXX = g++
 INCLUDE = 
 
 CFLAG = -g -Wall $(INCLUDE)
-CXXFLAGS = -g -Wall $(INCLUDE) -std=c++11
+CXXFLAGS = -g -Wall -std=c++11 $(INCLUDE)
 
 executables = simulation test1 
 objects = simulation.o road.o lane.o

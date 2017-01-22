@@ -152,19 +152,37 @@ void Road::merge(){
                     if(whichWay == 1){
                         double r = ((double) rand() / (RAND_MAX));
                         if(r < mergingProbability){
-                            
-                        }
-                        //merge right
+                             int x = c->geti();
+                             if(c->getj() + (c->velocity()) >= this->larr()[x]->size()){
+                                this->larray[x]->carray[y] = 0;
+                                
+                            } else {
+                                this->larray[x+1]->carray[y+(c->velocity())] = c;
+                                c->setdone(1);
+                                this->larray[x]->carray[y] = 0;
+                            }
 
-                        c->setdone(1);
-                    }
+                                c->setdone(1);
+                            }
+
+                        }
                     else if (whichWay == -1){
                         double r = ((double) rand() / (RAND_MAX));
                         if(r < mergingProbability){
+                             int x = c->geti();
+                             if(c->getj() + (c->velocity()) >= this->larr()[x]->size()){
+                                this->larray[x]->carray[y] = 0;
+                                
+                            } else {
+                                this->larray[x-1]->carray[y+(c->velocity())] = c;
+                                c->setdone(1);
+                                this->larray[x]->carray[y] = 0;
+                            }
+
+                                c->setdone(1);
+                            }
 
                         }
-                        //merge left
-                        c->setdone(1);
                     }
 
                 }

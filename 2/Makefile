@@ -18,6 +18,6 @@ $(objects): road.h
 
 .PHONY: clean
 clean: 
-	rm -f *~ a.out core simulation $(objects) $(executable)
+	rm -f *~ a.out core $(objects) $(executables)
 .PHONY: all
 all: clean default

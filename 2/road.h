@@ -81,6 +81,14 @@ class Road {
         //CONSTRUCTORS AND DESTRUCTORS
         //road default constructor
         Road(int b){ larray = new Lane*[b]; wdth = b;cars = *(new list<Car*>());  }
+        Road(Lane** data, int size) { 
+                larray = new Lane*[size];
+                for (int i = 0; i < size; i++){
+                         addLane(data[i],i);
+                }
+                wdth = size;
+                cars = *(new list<Car*>());
+        }
         //road destructor
         ~Road(){ delete[] larray; }
         //copy constructor
@@ -89,8 +97,7 @@ class Road {
         //DATA CONTAINERS
         //data member
         Lane** larray; //only call this when modifying
-        list<Car*> cars;
-
+        list<Car*> cars; 
         //ACCESSORS 
         //get road width
         int width() const{ return wdth; }
@@ -121,7 +128,7 @@ class Road {
         void clearDones();
         Road& next();
         //allows printing
-        friend ostream& operator<<(ostream& os, Road& r){os<<"<--\n"; for (int i = 0; i < r.wdth; i++){os<<i<<": "<<r.larray[i]<<endl;}os<<"-->\n";return os;}
+        friend ostream& operator<<(ostream& os, Road& r){os<<"<--\n"; for (int i = 0; i < r.wdth; i++){os<<"Lane "<< i<<": "<<*(r.larray[i])<<"\n";}os<<"-->\n";return os;}
 
         
     private: 

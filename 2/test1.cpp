@@ -29,12 +29,16 @@ int main() {
 	if(dist(gen) > density) l->addCar(0);
         r = &(r->next());
         for(Car* c : r->cars) {
-            if(c->getj() > 1000) vels.push_back((double) c->velocity());
+            vels.push_back((double) c->velocity());
         }
     }
+    
+    cout << vels.size() << endl;
+
+    for(unsigned i=0; i<vels.size(); ++i) cout << '[' << vels[i] << ']';
 
     double result = accumulate(vels.begin(), vels.end(), 0.0)/vels.size();
-    cout << result << endl;
+    cout << endl << result << endl;
 }
 //anun, pass it on
 //anoon, pass it on

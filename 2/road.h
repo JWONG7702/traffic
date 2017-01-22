@@ -42,8 +42,10 @@ class Lane {
        Lane(int l){ carray = new Car*[l]; len = l; }
        //destructor
        ~Lane(){ delete[] carray; }
+       //copy constructor
+       Lane(const Lane& l);
 
-        Car** carray; //only call this when modifying
+       Car** carray; //only call this when modifying
        //get lane size
        int size() const{ return len; }
        //get array of cars which makes up lane
@@ -77,6 +79,7 @@ class Road {
         int width() const{ return wdth; }
         //get array of lanes which makes up road
         Lane** larr() const{ return larray; }
+
         //add new lane to road
         void addLane(Lane* lpt, int i){
             larray[i] = &(*lpt);

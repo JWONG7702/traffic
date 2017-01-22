@@ -58,25 +58,39 @@ class Lane {
 
 class Road {
     public:
-        //data member
-        Lane** larray; //only call this when modifying
-       
-        //get road width
-        int width() const{ return wdth; }
-        //get array of lanes which makes up road
-        Lane** larr() const{ return larray; }
 
+        //CONSTRUCTORS AND DESTRUCTORS
         //road default constructor
         Road(int b){ larray = new Lane*[b]; wdth = b;cars = *(new list<Car*>());  }
         //road destructor
         ~Road(){ delete[] larray; }
         //copy constructor
         Road(const Road& r); 
+
+        //DATA CONTAINERS
+        //data member
+        Lane** larray; //only call this when modifying
+        list<Car*> cars;
+
+        //ACCESSORS 
+        //get road width
+        int width() const{ return wdth; }
+        //get array of lanes which makes up road
+        Lane** larr() const{ return larray; }
         //add new lane to road
         void addLane(Lane* lpt, int i){
             larray[i] = &(*lpt);
         }
-
+        //get neighbors
+        int hasNeighbor(Car* car, int i);
+        int hasLeft(Car* car){return hasNeighbor(car,-1);};
+        int hasRight(Car* car){return hasNeighbor(car,1);};
+        Car* getFront(Car* car){return getNeighbor(car,-1);};
+        Car* getRight(Car* car){return getNeighbor(car,0);};
+        Car* getLeft(Car* car){return getNeighbor(car,1);};
+        Car* getNeighbor(Car* car, int i, int dir = 1);
+        Car* getRightBack(Car* car){return getNeighbor(car, -1, -1);}
+        Car* getLeftBack(Car* car){return getNeighbor(car,1, -1);}
         //road evolution methods
 	void accelerate();
         void slow();
@@ -87,16 +101,8 @@ class Road {
         Road& next();
         //allows printing
         friend ostream& operator<<(ostream& os, Road& r);
-        //get closest cars
-        int hasNeighbor(Car* car, int i);
-        int hasLeft(Car* car){return hasNeighbor(car,-1);};
-        int hasRight(Car* car){return hasNeighbor(car,1);};
-        Car* getFront(Car* car){return getNeighbor(car,-1);};
-        Car* getRight(Car* car){return getNeighbor(car,0);};
-        Car* getLeft(Car* car){return getNeighbor(car,1);};
-        Car* getNeighbor(Car* car, int i);
-        list<Car*> cars;
 
+        
     private: 
         int wdth;
 };

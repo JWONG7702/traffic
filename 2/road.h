@@ -51,7 +51,7 @@ class Lane {
        //get array of cars which makes up lane
        Car** carr() const { return carray; }
        //allows printing
-       friend ostream& operator<<(ostream& os, Lane& l);
+       friend ostream& operator<<(ostream& os, Lane& l){os<<"||"; for (int i= 0; i< l.size(); i++ ){os<<*(l.carray[i]);  }  ;os<<"||"<<endl;return os;};
     private:
        int len;
 };
@@ -102,7 +102,7 @@ class Road {
         void clearDones();
         Road& next();
         //allows printing
-        friend ostream& operator<<(ostream& os, Road& r);
+        friend ostream& operator<<(ostream& os, Road& r){os<<"<--\n"; for (int i = 0; i < r.wdth; i++){os<<i<<": "<<r.larray[i]<<endl;}os<<"-->\n";return os;}
 
         
     private: 

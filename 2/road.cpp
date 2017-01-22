@@ -71,8 +71,8 @@ void Road::motion() {
     for (Car* c : this->cars) {
         int x = c->geti();
         int y = c->getj();
-        if(c != 0){
-            if(c->mode() == 1 && c->done() == 0){
+        if(c != 0) {
+            if(c->mode() == 1 && c->done() == 0) {
                 if(c->getj() + (c->velocity()) >= this->larr()[x]->size()) this->larray[x]->carray[y] = 0;   
                 else {
                     this->larray[x]->carray[y+(c->velocity())] = c;
@@ -165,9 +165,7 @@ void Road::merge() {
                     if(r < mergingProbability) {
                         int x = c->geti();
                         int y = c->getj();
-                        if(c->getj() + (c->velocity()) >= this->larr()[x]->size()) {
-                            this->larray[x]->carray[y] = 0;       
-                        }
+                        if(c->getj() + (c->velocity()) >= this->larr()[x]->size()) this->larray[x]->carray[y] = 0;
  
                         else {
                             this->larray[x+1]->carray[y+(c->velocity())] = c;
@@ -184,9 +182,7 @@ void Road::merge() {
                     if(r < mergingProbability) {
                         int x = c->geti();
                         int y = c->getj();
-                        if(c->getj() + (c->velocity()) >= this->larr()[x]->size()) {
-                            this->larray[x]->carray[y] = 0;                                
-                        } 
+                        if(c->getj() + (c->velocity()) >= this->larr()[x]->size()) this->larray[x]->carray[y] = 0;
 
                         else {
                             this->larray[x-1]->carray[y+(c->velocity())] = c;
@@ -194,7 +190,7 @@ void Road::merge() {
                             this->larray[x]->carray[y] = 0;
                         }
 
-                            c->setdone(1);
+                        c->setdone(1);
                     }
                 }
             }

@@ -3,7 +3,7 @@ CXX = g++
 
 INCLUDE = 
 
-CFLAG = -g Wall $(INCLUDE)
+CFLAG = -g -Wall $(INCLUDE)
 CXXFLAGS = -g -Wall $(INCLUDE) -std=c++11
 
 executables = simulation 

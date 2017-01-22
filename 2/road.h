@@ -92,7 +92,7 @@ class Road {
         Car* getFront(Car* car){return getNeighbor(car,-1);};
         Car* getRight(Car* car){return getNeighbor(car,0);};
         Car* getLeft(Car* car){return getNeighbor(car,1);};
-        Car* getNeighbor(Car* car, int i, int dir = 1);
+        Car* getNeighbor(Car* car, int i, int dir);
         Car* getRightBack(Car* car){return getNeighbor(car, -1, -1);}
         Car* getLeftBack(Car* car){return getNeighbor(car,1, -1);}
         //road evolution methods

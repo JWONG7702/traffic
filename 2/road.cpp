@@ -88,63 +88,51 @@ void Road::motion(){
  Change lane with probability P.
 
  */
-void Road::merge(){
+void Road::merge() {
     int whichWay = 0;
-    for(Car* c : this->cars){
-            if(c != 0){
-                if(c->mode() == 1 && c->done() == 0){
-                    if(this->hasRight(c)){
+    for(Car* c : this->cars) {
+            if(c != 0) {
+                if(c->mode() == 1 && c->done() == 0) {
+                    if(this->hasRight(c)) {
                         Car* d = this->getRight(c);
                         Car* f = this->getFront(c);
-                        if(d == 0){
-                            whichWay = 1;
-                        }
+                        if(d == 0) whichWay = 1;
                         if(whichWay == 0 && d != 0){
-                            if(d->getj() + d->velocity() - c->getj() > f->getj() + f->velocity() - c->getj() )
-                                whichWay = 1;
+                            if(d->getj() + d->velocity() - c->getj() > f->getj() + f->velocity() - c->getj()) whichWay = 1;
                         }
-                    } else if(this->hasLeft(c)){
+                    } 
+                    else if(this->hasLeft(c)) {
                         Car* e = this->getLeft(c);
-                        if(e == 0){
-                            whichWay = -1;
-                        }
+                        Car* f = this->getFront(c);
+                        if(e == 0) whichWay = -1;
                         if(whichWay == 0 && e != 0){
-                            if(e->getj() + e->velocity() - c->getj() > f->getj() + f->velocity() - c->getj() )
-                                whichWay = -1;
+                            if(e->getj() + e->velocity() - c->getj() > f->getj() + f->velocity() - c->getj()) whichWay = -1;
                         }
-
-
-
-
                     }
 
-                    if(whichWay == 1){
-                        if(this->hasNeighbor(c, 2)){
+                    if(whichWay == 1) {
+                        if(this->hasNeighbor(c, 2)) {
                             Car* fg = this->getNeighbor(c, 2);
                             Car* prev = this->getRightBack(c);
-                            if(f != 0){
-                                if(fg->getj() == c->getj()){
-                                    whichWay = 0;
-                                } else if (prev != 0){
-                                    if(prev->velocity() > c->getj() - prev->getj()){
-                                        whichWay = 0;
-                                    }
+                            if(fg != 0) {
+                                if(fg->getj() == c->getj()) whichWay = 0;
+                                else if (prev != 0) {
+                                    if(prev->velocity() > c->getj() - prev->getj()) whichWay = 0;
                                 }
+                            }
                         }
                     }
 
-                    if(whichWay == -1){
-                        if(this->hasNeighbor(c, -2)){
+                    if(whichWay == -1) {
+                        if(this->hasNeighbor(c, -2)) {
                             Car* fg = this->getNeighbor(c, -2);
                             Car* prev = this->getLeftBack(c);
-                            if(fg != 0){
-                                if(fg->getj() == c->getj()){
-                                    whichWay = 0;
-                                } else if (prev != 0){
-                                    if(prev->velocity() > c->getj() - prev->getj()){
-                                        whichWay = 0;
-                                    }
+                            if(fg != 0) {
+                                if(fg->getj() == c->getj()) whichWay = 0;
+                                else if (prev != 0){
+                                    if(prev->velocity() > c->getj() - prev->getj()) whichWay = 0;
                                 }
+                            }
                         }
                     }
 
@@ -165,17 +153,14 @@ void Road::merge(){
                         //merge left
                         c->setdone(1);
                     }
-
                 }
-
-
             }
+        }
     }
-
 }
 
 //clears the done for all living cars (mode == 1)
-void Road::clearDones(){
+void Road::clearDones() {
     for(Car* c : this->cars){
             if(c != 0){
                 if(c->mode() == 1){

@@ -15,7 +15,7 @@ class Car {
         //set car isdone status
         int setdone(int newstate) { return isdone = newstate; }
         //default car constructor
-        Car(int i, int j, int v, int m = 1, int d = 0) {x = i, y = j, vel = v;m = state;isdone = d; }
+        Car(int i, int j, int v, int m = 1, int d = 0) {x = i, y = j, vel = v; state=m;isdone = d; }
         //car destructor
         ~Car();
         //accelerate by 1
@@ -126,7 +126,7 @@ class Road {
         void clearDones();
         Road& next();
         //allows printing
-        friend ostream& operator<<(ostream& os, Road& r){os<<"<--\n"; for (int i = 0; i < r.wdth; i++){os<<"Lane "<< i<<": "<<*(r.larray[i])<<"\n";}os<<"-->\n";return os;}
+        friend ostream& operator<<(ostream& os, Road& r){os<<"<--\n"; os<< "number of cars: " << r.cars.size() << endl; for (int i = 0; i < r.wdth; i++){os<<"Lane "<< i<<": "<<*(r.larray[i])<<"\n";}os<<"-->\n";return os;}
 
         
     private: 

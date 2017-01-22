@@ -133,7 +133,7 @@ void Road::merge() {
 
                 if(whichWay == 1) {
                     if(this->hasNeighbor(c, 2)) {
-                        Car* fg = this->getNeighbor(c, 2);
+                        Car* fg = this->getNeighbor(c, 2, 1);
                         Car* prev = this->getRightBack(c);
                         if(fg != 0) {
                             if(fg->getj() == c->getj()) whichWay = 0;
@@ -146,7 +146,7 @@ void Road::merge() {
 
                 if(whichWay == -1) {
                     if(this->hasNeighbor(c, -2)) {
-                        Car* fg = this->getNeighbor(c, -2);
+                        Car* fg = this->getNeighbor(c, -2, 1);
                         Car* prev = this->getLeftBack(c);
                         if(fg != 0) {
                             if(fg->getj() == c->getj()) whichWay = 0;

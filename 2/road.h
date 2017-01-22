@@ -53,7 +53,7 @@ class Lane {
        //add new car to lane
        void addCar(Car* c);
        //allows printing
-       friend ostream& operator<<(ostream& os, Lane& l);
+       friend ostream& operator<<(ostream& os, Lane& l){os<<"||"; for (int i= 0; i< l.size(); i++ ){os<<*(l.carray[i]);  }  ;os<<"||"<<endl;return os;};
     private:
        int len;
 };

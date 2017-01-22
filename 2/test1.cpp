@@ -1,6 +1,12 @@
 #include "road.h"
+#include <chrono>
+#include <random>
 
-int main(){
+int main() {
+    unsigned seed = chrono::system_clock::now().time_since_epoch().count();
+    mt19937 gen(seed);
+    uniform_real_distribution<double> dist(0.0,1.0);
+
     Car* c1 = new Car(0,0,3);
     c1->accel(9);
     Car* c2 = new Car(0,0,3);

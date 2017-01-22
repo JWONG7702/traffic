@@ -39,7 +39,7 @@ class Car {
 class Lane {
     public:
     //vector of sharedpointer of cars: default construcotr
-       Lane(int l){ carray = new Car*[l]; len = l; }
+       Lane(int l){ carray = new Car*[l]; len = l; i = -1; }
        //destructor
        ~Lane(){ delete[] carray; }
        //copy constructor

@@ -1,8 +1,10 @@
 #include <stdio.h>
-// #include <time.h>
+#include <random>
 #include <list>
 #include "lane.cpp"
 #include "road.h"
+#include <cmath>
+#include <chrono>
 
 static int maxVel = 20;
 static int maxDecel = maxVel/5;
@@ -48,10 +50,12 @@ void Road::slow(){
 //randomly changes the velocity of some cars to be lower, based on a phantomProbability
 void Road::random(){
     for(Car* c : this->cars) {
-            // srand(time(NULL));
+            unsigned seed = chrono::system_clock::now().time_since_epoch().count();
+            mt19937 gen(seed);
+            uniform_real_distribution<double> dist(0.0,1.0);
             if(c != 0) {
                 if(c->mode() == 1 && c->velocity() > 1){
-                    double r = ((double) rand() / (RAND_MAX));
+                    double r = dist(gen);
                     if(r < phantomProbability){
                         c->accel(-1);
                     }

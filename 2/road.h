@@ -59,11 +59,20 @@ class Lane {
        //get array of cars which makes up lane
        Car** carr() const { return carray; }
        //allows printing
-       friend ostream& operator<<(ostream& os, Lane& l){os<<"||"; for (int i= 0; i< l.size(); i++ ){os<<*(l.carray[i]);  }  ;os<<"||"<<endl;return os;};
+       friend ostream& operator<<(ostream& os, Lane& l){
+                os<<"||"; 
+                for (int i= 0; i< l.size(); i++ ){
+                    if (!(l.carray[i])){ os << "[X]"; }
+                    else { os<<*(l.carray[i]);}
+                }
+                os<<"||"<<endl;
+                return os;
+       }
+       void addCar(Car* c, int j = 0){ this->carray[j] = c; c->seti(this->geti()); c->setj(j); }
+
     private:
        int len;
 
-       void addCar(Car* c, int j = 0){ this->carray[j] = c; c->seti(this->geti()); c->setj(j); }
 };
 
 class Road {

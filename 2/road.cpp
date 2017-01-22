@@ -229,5 +229,6 @@ Road& Road::next()
     r->random();
     r->motion();
     r->clearDones();
+    //this->~Road();
     return *r;
 }

@@ -79,13 +79,13 @@ class Road {
         //CONSTRUCTORS AND DESTRUCTORS
         //road default constructor
         Road(int b){ larray = new Lane*[b]; wdth = b;cars = *(new list<Car*>());  }
-        Road(Lane** data, int size, list<Car*> listofcars = *(new list<Car*>())) { 
+        Road(Lane** data, int size, list<Car*>* listofcars = new list<Car*>()) { 
                 larray = new Lane*[size];
                 for (int i = 0; i < size; i++){
                          addLane(data[i],i);
                 }
                 wdth = size;
-                cars = listofcars;
+                cars = *listofcars;
         }
         //road destructor
         ~Road(){ delete[] larray; }

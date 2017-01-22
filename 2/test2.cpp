@@ -8,7 +8,9 @@ int main (){
     c1->accel(9);
     Car* c2 = new Car(0,0,3);
     cout << *c2 << *c1 << endl;
- 
+    list<Car*>* carlist = new list<Car*>();
+    carlist->push_front(c1);
+    carlist->push_front(c2);
     Lane* l1 = new Lane(20);
     l1->carr()[0] = c1;
     l1->carr()[10] = c2;
@@ -17,7 +19,7 @@ int main (){
     Lane** arroflanes = new Lane*();
     arroflanes[0] = l1;
     arroflanes[1] = l2;
-    Road *r = new Road(arroflanes, 2);
+    Road *r = new Road(arroflanes, 2,carlist );
     cout << *r <<endl;    
     
     list<Road> simulation =*( new list<Road>());

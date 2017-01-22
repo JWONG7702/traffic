@@ -223,7 +223,7 @@ int Road::hasNeighbor(Car* car, int lane){
 //advances the entire simulation (the road) forward one time step
 Road& Road::next()
 {
-    Road *r = new Road(this->larr(), this->width(), this->cars);
+    Road *r = new Road(this->larr(), this->width(), &this->cars);
     r->accelerate();
     r->slow();
     r->random();

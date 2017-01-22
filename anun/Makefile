@@ -12,10 +12,10 @@ objects = simulation.o road.o
 .PHONY: default
 default: $(executables)
 
-$(objects): road.h
+$(objects): checkpt.h
 
 .PHONY: clean
 clean: 
-	rm -f *~ a.out core simulation $(objects) $(executable)
+	rm -f *~ a.out core $(objects) $(executables)
 .PHONY: all
 all: clean default

@@ -6,6 +6,7 @@
 static int maxVel = 20;
 static int maxDecel = maxVel/5;
 static double phantomProbability = 0.2;
+static double mergingProbability = 0.1;
 static int maxSearchRegion = 10;
 void Road::accelerate(){
     for(Car* c : this->cars){
@@ -104,24 +105,53 @@ void Road::merge(){
                     }
 
                     if(whichWay == 1){
-                        if(c->hasNeighbor(car, 2)){
-                            Car* f = c->getNeighbor(car, 2);
-                            Car* prev = c->getRightBack();
+                        if(this->hasNeighbor(c, 2)){
+                            Car* fg = this->getNeighbor(c, 2);
+                            Car* prev = this->getRightBack(c);
                             if(f != 0){
-                                if(f->getj() == c->getj()){
+                                if(fg->getj() == c->getj()){
                                     whichWay = 0;
                                 } else if (prev != 0){
                                     if(prev->velocity() > c->getj() - prev->getj()){
-                                        
+                                        whichWay = 0;
                                     }
                                 }
-
-                            } else {
-
-                            }
-
                         }
                     }
+
+                    if(whichWay == -1){
+                        if(this->hasNeighbor(c, -2)){
+                            Car* fg = this->getNeighbor(c, -2);
+                            Car* prev = this->getLeftBack(c);
+                            if(fg != 0){
+                                if(fg->getj() == c->getj()){
+                                    whichWay = 0;
+                                } else if (prev != 0){
+                                    if(prev->velocity() > c->getj() - prev->getj()){
+                                        whichWay = 0;
+                                    }
+                                }
+                        }
+                    }
+
+                    if(whichWay == 1){
+                        double r = ((double) rand() / (RAND_MAX));
+                        if(r < mergingProbability){
+                            
+                        }
+                        //merge right
+
+                        c->setdone(1);
+                    }
+                    else if (whichWay == -1){
+                        double r = ((double) rand() / (RAND_MAX));
+                        if(r < mergingProbability){
+
+                        }
+                        //merge left
+                        c->setdone(1);
+                    }
+
                 }
 
 
@@ -151,14 +181,16 @@ int Road::hasNeighbor(Car* car, int lane){
     }
 }
 
-Car* Road::getNeighbor(Car* car, int lane){
+//dir = 1 means search forward
+//dir = -1 means search forward
+Car* Road::getNeighbor(Car* car, int lane, int dir){
     int x = car -> geti();
     int y = car -> getj();
     Car* nearest = 0;
     if (this->hasNeighbor(car, lane)){
         Lane* searchlane = this -> larr()[x+lane];
         for (int i = 0; i< maxSearchRegion;i++){
-            if ( (nearest = searchlane -> carr()[y+i]) != 0){
+            if ( (nearest = searchlane -> carr()[y+(dir*i)]) != 0){
                 return nearest;
             }
         } 

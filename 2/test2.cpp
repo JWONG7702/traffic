@@ -20,12 +20,12 @@ int main (){
     Road *r = new Road(arroflanes, 2);
     cout << *r <<endl;    
     
-    list<Road> simulation =*( new list<Road>());
+    list<Road>* simulation = new list<Road>();
     for (int i = 0; i < 10; i++){
-        simulation.push_front(*r);
+        simulation->push_front(*r);
         r = &(r->next());
     } 
-    for (auto it = simulation.begin(); it != simulation.end(); it++){
+    for (auto it = simulation->begin(); it != simulation->end(); it++){
         cout << *it<< endl;
     } 
     

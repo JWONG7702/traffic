@@ -17,7 +17,7 @@ class Car {
         //default car constructor
         Car(int i, int j, int v, int m = 1, int d = 0) {x = i, y = j, vel = v;m = state;isdone = d; }
         //car destructor
-        ~Car();
+        //~Car();
         //accelerate by 1
         void accel(int i = 1) { vel += i; }
         //allows printing
@@ -49,7 +49,7 @@ class Lane {
 
        int seti(int val){return i=val;}
 
-       void clearLane(){ carray = new Car*[len];}
+       void clearLane(){ for(int i=0;i<len;i++) delete carray[i]; delete[] carray; carray = new Car*[len];}
 
        Car** carray; //only call this when modifying
        //get lane size
@@ -66,7 +66,7 @@ class Lane {
                 os<<"||"<<endl;
                 return os;
        }
-       void addCar(int j = 0){ Car* c = new Car(this->i, j, 0); this->carray[j] = c; }
+       void addCar(int j = 0){ Car* c = new Car(this->i, j, 0); if(this->carray[j]) delete this->carray[j]; this->carray[j] = c; }
 
     private:
        int len;
@@ -88,7 +88,7 @@ class Road {
                 cars = *listofcars;
         }
         //road destructor
-        ~Road(){ delete[] larray; }
+        ~Road(){ for(int i=0;i<wdth;i++) delete larray[i]; delete[] larray; cars.clear(); }
         //DEPRECATED: copy constructor
         //Road(const Road& r); 
 

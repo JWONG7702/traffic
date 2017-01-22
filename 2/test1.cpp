@@ -15,8 +15,7 @@ int main() {
     Lane* l = new Lane(2000);
 
     Road* r = new Road(1);
-    r->larr()[0] = l;
-    l->i = 0;
+    r->addLane(l, 0);
 
     for(int i=0;i<1000;i++) {
         if(dist(gen) > density) l->addCar(0);

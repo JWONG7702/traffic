@@ -67,7 +67,7 @@ class Road {
         Lane** larr() const{ return larray; }
 
         //road default constructor
-        Road(int b){ larray = new Lane*[b]; wdth = b;cars = new list<Car*>  }
+        Road(int b){ larray = new Lane*[b]; wdth = b;cars = *(new list<Car*>());  }
         //road destructor
         ~Road(){ delete[] larray; }
         //copy constructor

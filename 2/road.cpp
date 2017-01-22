@@ -3,6 +3,7 @@
 #include <list>
 #include "lane.cpp"
 #include "road.h"
+#include <iostream>
 #include <cmath>
 #include <chrono>
 
@@ -227,15 +228,26 @@ int Road::hasNeighbor(Car* car, int lane){
 //advances the entire simulation (the road) forward one time step
 Road& Road::next()
 {
+    cout << "entered next" << endl;
     Road *r = new Road(*this);
+    cout << "build succeeded" << endl;
     r->accelerate();
+    cout << "accelerate pt1 succeeded" << endl;
     r->slow();
+    cout << "slow pt1 succeeded" << endl;
     r->random();
+    cout << "random pt1 succeeded" << endl;
     r->merge();
+    cout << "merge succeeded" << endl;
     r->accelerate();
+    cout << "accelerate pt2 succeeded" << endl;
     r->slow();
+    cout << "slow pt2 succeeded" << endl;
     r->random();
+    cout << "random pt2 succeeded" << endl;
     r->motion();
+    cout << "motion succeeded" << endl;
     r->clearDones();
+    cout << "clearDones succeeded" << endl;
     return *r;
 }

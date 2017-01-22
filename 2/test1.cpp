@@ -22,7 +22,7 @@ int main() {
         cout << "entered loop" << endl;
         if(dist(gen) > density) l->addCar(0);
         cout << "added car" << endl;
-        r->next();
+        r = &(r->next());
         cout << "went next" << endl;
     }
     cout << "preliminary run successful" << endl;
@@ -30,7 +30,7 @@ int main() {
 
     for(int i=0;i<1000;i++) {
 	if(dist(gen) > density) l->addCar(0);
-        r->next();
+        r = &(r->next());
         for(Car* c : r->cars) {
             if(c->getj() > 1000) vels.push_back((double) c->velocity());
         }

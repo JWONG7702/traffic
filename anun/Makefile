@@ -6,13 +6,13 @@ INCLUDE =
 CFLAG = -g Wall $(INCLUDE)
 CXXFLAGS = -g -Wall $(INCLUDE) -std=c++11
 
-executables = simulation 
-objects = simulation.o road.o
+executables = data 
+objects =
 
 .PHONY: default
 default: $(executables)
 
-$(objects): checkpt.h
+$(objects):
 
 .PHONY: clean
 clean: 

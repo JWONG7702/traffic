@@ -3,6 +3,7 @@
 #include <cmath>
 #include <algorithm>    // std::transform
 #include <vector>
+using namespace std;
 
 const double id1[9]  = {7.5,5.3,11.1,10.0,9.1,8.8,12.6,15.4,11.9};
 const double id2[7]  = {14.6,11.8,14.8,20.4,7.7,7.5,10.9};
@@ -16,5 +17,13 @@ const double intervalNormal[46] = {9,1,1,2,1,2,11,30,24,55,8,3,16,1,22,7,2,12,2,
 //cucc my socc, binch
 
 int main() {
+    vector<double> v1(intervalPre, intervalPre + sizeof(intervalPre)/sizeof(intervalPre[0]));
+    double sum1 = std::accumulate(v1.begin(), v1.end(), 0.0);
+    double mean1 = sum1 / v1.size();
+    std::vector<double> diff1(v1.size());
+    std::transform(v1.begin(), v1.end(), diff1.begin(), [mean1](double x) { return x - mean1; });
+    double sq_sum1 = std::inner_product(diff1.begin(), diff1.end(), diff1.begin(), 0.0);
+    double stdev1 = std::sqrt(sq_sum1 / (v1.size() - 1));
+    printf("%d %d %6.4f %6.4f\n", 1, 1, mean1, stdev1);
 
 } 

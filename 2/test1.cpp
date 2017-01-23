@@ -18,14 +18,14 @@ int main() {
     r->addLane(l, 0);
 
     for(int i=0;i<1000;i++) {
-        if(dist(gen) > density) l->addCar(0);
+        if(dist(gen) > density) r->addCar(0);
         r = &(r->next());
     }
 
     vector<double> vels;
 
     for(int i=0;i<1000;i++) {
-	if(dist(gen) > density) l->addCar(0);
+	if(dist(gen) > density) r->addCar(0);
         r = &(r->next());
         for(Car* c : r->cars) {
             vels.push_back((double) c->velocity());
@@ -37,7 +37,7 @@ int main() {
     for(unsigned i=0; i<vels.size(); ++i) cout << '[' << vels[i] << ']';
 
     double result = accumulate(vels.begin(), vels.end(), 0.0)/vels.size();
-    cout << endl << result << endl;
+    cout << result << endl;
 }
 //anun, pass it on
 //anoon, pass it on

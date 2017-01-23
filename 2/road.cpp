@@ -71,7 +71,7 @@ void Road::motion() {
     for (Car* c : this->cars) {
         int x = c->geti();
         int y = c->getj();
-        cout << x<< "|" << y <<endl;
+        //cout << x<< "|" << y <<endl;
         if(c != 0) {
             if(c->mode() == 1 && c->done() == 0) {
                 if(c->getj() + (c->velocity()) >= this->larr()[x]->size()) this->larray[x]->carray[y] = 0;   
@@ -225,10 +225,10 @@ Road& Road::next()
     r->accelerate();
     r->slow();
     r->random();
-//    r->merge();
-//    r->accelerate();
-//    r->slow();
-//    r->random();
+    //r->merge();
+    //r->accelerate();
+    //r->slow();
+    //r->random();
     r->motion();
     r->clearDones();
     //this->~Road();

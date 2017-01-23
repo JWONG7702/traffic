@@ -15,7 +15,7 @@ class Car {
         //set car isdone status
         int setdone(int newstate) { return isdone = newstate; }
         //default car constructor
-        Car(int i, int j, int v, int m = 1, int d = 0) { cout<< "newcar";x = i; y = j; vel = v; state=m;isdone = d; }
+        Car(int i, int j, int v, int m = 1, int d = 0) { x = i; y = j; vel = v; state=m;isdone = d; }
         //car destructor
         //~Car();
         //accelerate by 1
@@ -66,7 +66,7 @@ class Lane {
                 os<<"||"<<endl;
                 return os;
        }
-       void addCar(int j = 0){ Car* c = new Car(this->i, j, 0); if(this->carray[j]) delete this->carray[j]; this->carray[j] = c; }
+       void addCar(Car *c, int j = 0){ if(this->carray[j]) delete this->carray[j]; this->carray[j] = c; }
 
     private:
        int len;
@@ -107,6 +107,8 @@ class Road {
             larray[i] = &(*lpt);
             lpt->seti(i);
         }
+        //add new car to a lane in road
+        void addCar(int i, int j = 0) { Car* c = new Car(i, j, 0); cars.push_back(c); larray[i]->addCar(c, j); }
         //get neighbors
         int hasNeighbor(Car* car, int i);
         int hasLeft(Car* car) {return this->hasNeighbor(car,-1);}
